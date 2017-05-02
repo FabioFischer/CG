@@ -20,6 +20,7 @@ import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -100,6 +101,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     @Override
     public void keyPressed(KeyEvent e) {
         this.updateGraphicWorld();
+        System.out.println(e.getKeyCode());
         
         switch (e.getKeyCode()) {
             case KeyEvent.VK_1:
@@ -111,6 +113,48 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case KeyEvent.VK_3:
                 this.setAppMode(this.SEL_OBJECT_MODE);
                 break;
+            case KeyEvent.VK_E:
+                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
+                    System.out.println("Esquerda");
+                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(5, 0, 0);
+                    this.getSelectedObj().exibeMatriz();
+                }
+                break;
+            case KeyEvent.VK_D:
+                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
+                    System.out.println("Direita");
+                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(-5, 0, 0);
+                    this.getSelectedObj().exibeMatriz();
+                }
+                break;
+            case KeyEvent.VK_C:
+                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
+                    System.out.println("Cima");
+                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(0, -5, 0);
+                    this.getSelectedObj().exibeMatriz();
+                }
+                break;
+            case KeyEvent.VK_B:
+                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
+                    System.out.println("Baixo");
+                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(0, 5, 0);
+                    this.getSelectedObj().exibeMatriz();
+                }
+                break;
+            case KeyEvent.VK_DELETE:
+                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
+                    int ans = this.createWarningDialog("Tem certeza que deseja excluir o objeto selecionado?", new String[]{"Não", "Sim"});
+                                    
+                    if (ans != 0) {
+                        this.setAppMode(SEL_OBJECT_MODE);
+                        this.getWorld().deleteObject(this.getSelectedObj());                    
+                        this.updateGraphicWorld();
+                    }
+                }
         }
         System.out.println("AppMode: " + this.getAppMode());
         
@@ -248,10 +292,17 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         if (this.getWorld() != null) {
             this.getWorld().addObject(this.getNewObj());
         }
-        this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
+        if (this.getAppMode() != this.UPD_OBJECT_MODE) {
+            System.out.println("Limpando tudo");
+            this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
+            this.setSelectedObj(null);
+        }
         this.setNewObj(null);
-        this.setSelectedObj(null);
         this.setSelectedPoint(null);
+    }
+    
+    public int createWarningDialog(String message, String[] options) {
+        return JOptionPane.showOptionDialog(null,message, "Atenção!", 0, JOptionPane.WARNING_MESSAGE, null, options, null);
     }
 
     public GL getGl() {
