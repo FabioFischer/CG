@@ -17,7 +17,7 @@ public final class Transformation {
         for (int i = 0; i < this.getMatrix().length; i++) {
             this.getMatrix()[i] = 0;
         }
-        this.getMatrix()[0] = this.getMatrix()[5] = this.getMatrix()[10] = this.getMatrix()[15] = 0;    
+        this.getMatrix()[0] = this.getMatrix()[5] = this.getMatrix()[10] = this.getMatrix()[15] = 1;    
     }
     
     public void translate(double tx, double ty, double tz) {
@@ -78,6 +78,8 @@ public final class Transformation {
                     + this.getMatrix()[(i%4)+12] * t.getMatrix()[i/4*4+3];
         }
         
+        newT.exibeMatriz();
+        
         return newT;
     }
     
@@ -97,5 +99,13 @@ public final class Transformation {
         for (int i = 0; i < this.getMatrix().length; i++) {
             this.getMatrix()[i] = matrix[i];
         }
+    }
+    
+    public void exibeMatriz() {
+            System.out.println("______________________");
+            System.out.println("|" + getElement( 0) + " | "+ getElement( 4) + " | " + getElement( 8) + " | "+ getElement(12));
+            System.out.println("|" + getElement( 1) + " | "+ getElement( 5) + " | " + getElement( 9) + " | "+ getElement(13));
+            System.out.println("|" + getElement( 2) + " | "+ getElement( 6) + " | " + getElement(10) + " | "+ getElement(14));
+            System.out.println("|" + getElement( 3) + " | "+ getElement( 7) + " | " + getElement(11) + " | "+ getElement(15));
     }
 }

@@ -15,7 +15,7 @@ public class Frame extends JFrame implements ActionListener{
 
     public Frame() {
         super("CG-N3");
-        setBounds(100, 350, 600 + 16, 600 + 39); 
+        setBounds(80, 80, 600 + 16, 600 + 39);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 
         getContentPane().setLayout(new BorderLayout());

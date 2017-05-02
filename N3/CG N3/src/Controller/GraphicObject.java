@@ -195,4 +195,14 @@ public class GraphicObject {
     public void setObjTransformation(ObjectTransformation objTransformation) {
         this.objTransformation = objTransformation;
     }
+        
+    public void exibeMatriz() {
+            this.getObjTransformation().getMainMatrix().exibeMatriz();
+    }
+
+    public void exibeVertices() {
+        for (Point p : this.getObjectPoints()) {
+            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
+        }
+    }
 }

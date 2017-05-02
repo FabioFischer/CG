@@ -20,6 +20,7 @@ public class ObjectTransformation {
     public void translate3D(double dx, double dy, double dz) {
         Transformation t = new Transformation();
         t.translate(dx, dy, dz);
+        t.exibeMatriz();
         this.setMainMatrix(t.transformMatrix(this.getMainMatrix()));
     }
     
