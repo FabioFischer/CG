@@ -49,6 +49,24 @@ public class GraphicWorld {
         }
     }
     
+    public void translateWorld(double x, double y, double z) {
+        for (GraphicObject object : objects) {
+            object.getObjTransformation().translate3D(x, y, z);
+        }
+    }
+    
+    public void scaleWorld(double x, double y) {
+        for (GraphicObject object : objects) {
+            object.getObjTransformation().scale2D(x, y);
+        }
+    }
+    
+    public void rotateStaticPointWorld(double angle) {
+        for (GraphicObject object : objects) {
+            object.getObjTransformation().rotateStaticPoint(angle, object.getBondBox().getCenterPoint());
+        }
+    }
+    
     public GraphicObject getObjectByPosition(Point pos) {
         if(!this.getObjects().isEmpty()) {
             for (GraphicObject object : this.getObjects()) {
