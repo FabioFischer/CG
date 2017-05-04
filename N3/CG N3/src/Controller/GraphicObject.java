@@ -41,7 +41,7 @@ public class GraphicObject {
         this.getGl().glLineWidth((float)this.getWidth());
         
         this.getGl().glPushMatrix();
-            this.getGl().glMultMatrixd(new Transformation().getMatrix(), 0);
+            this.getGl().glMultMatrixd(this.getObjTransformation().getMainMatrix().getMatrix(), 0);
             this.getGl().glBegin(this.getPrimitive());
                 for (Point objectPoint : this.getObjectPoints()) {
                     this.getGl().glVertex2d(objectPoint.getX(), objectPoint.getY());
@@ -195,14 +195,14 @@ public class GraphicObject {
     public void setObjTransformation(ObjectTransformation objTransformation) {
         this.objTransformation = objTransformation;
     }
-        
-    public void exibeMatriz() {
-            this.getObjTransformation().getMainMatrix().exibeMatriz();
-    }
-
-    public void exibeVertices() {
-        for (Point p : this.getObjectPoints()) {
-            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
-        }
-    }
+//        
+//    public void exibeMatriz() {
+//            this.getObjTransformation().getMainMatrix().exibeMatriz();
+//    }
+//
+//    public void exibeVertices() {
+//        for (Point p : this.getObjectPoints()) {
+//            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
+//        }
+//    }
 }

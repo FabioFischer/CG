@@ -42,6 +42,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private static final int NEW_OBJECT_MODE = 2;
     private static final int SEL_OBJECT_MODE = 3;
     private static final int UPD_OBJECT_MODE = 4;
+    private static final int UPD_POINT_MODE = 5;
 
     @Override
     public void init(GLAutoDrawable glad) {
@@ -115,34 +116,22 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 break;
             case KeyEvent.VK_E:
                 if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    System.out.println("Esquerda");
-                    this.getSelectedObj().exibeMatriz();
-                    this.getSelectedObj().getObjTransformation().translate3D(5, 0, 0);
-                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(-5, 0, 0);
                 }
                 break;
             case KeyEvent.VK_D:
                 if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    System.out.println("Direita");
-                    this.getSelectedObj().exibeMatriz();
-                    this.getSelectedObj().getObjTransformation().translate3D(-5, 0, 0);
-                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(5, 0, 0);
                 }
                 break;
             case KeyEvent.VK_C:
                 if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    System.out.println("Cima");
-                    this.getSelectedObj().exibeMatriz();
-                    this.getSelectedObj().getObjTransformation().translate3D(0, -5, 0);
-                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(0, 5, 0);
                 }
                 break;
             case KeyEvent.VK_B:
                 if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    System.out.println("Baixo");
-                    this.getSelectedObj().exibeMatriz();
-                    this.getSelectedObj().getObjTransformation().translate3D(0, 5, 0);
-                    this.getSelectedObj().exibeMatriz();
+                    this.getSelectedObj().getObjTransformation().translate3D(0, -5, 0);
                 }
                 break;
             case KeyEvent.VK_DELETE:
@@ -198,6 +187,9 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case UPD_OBJECT_MODE:
                 this.getGlDrawable().display();
                 break;
+            case UPD_POINT_MODE:
+                this.getGlDrawable().display();
+                break;
         }
     }
 
@@ -248,6 +240,10 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 this.getGlDrawable().display();
                 break;
             case UPD_OBJECT_MODE:
+                this.setSelectedPoint(this.getSelectedObj().findNearPoint(mousePosition, 10));
+                this.getGlDrawable().display();
+                break;
+            case UPD_POINT_MODE:
                 this.getGlDrawable().display();
                 break;
         }
@@ -292,13 +288,13 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         if (this.getWorld() != null) {
             this.getWorld().addObject(this.getNewObj());
         }
-        if (this.getAppMode() != this.UPD_OBJECT_MODE) {
-            System.out.println("Limpando tudo");
+        if (this.getAppMode() != this.UPD_POINT_MODE && this.getAppMode() != this.UPD_OBJECT_MODE) {
             this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
             this.setSelectedObj(null);
         }
+        
         this.setNewObj(null);
-        this.setSelectedPoint(null);
+        this.setSelectedPoint(((this.getAppMode() != this.UPD_POINT_MODE) ? null : this.getSelectedPoint()));
     }
     
     public int createWarningDialog(String message, String[] options) {
