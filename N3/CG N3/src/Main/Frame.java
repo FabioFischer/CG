@@ -20,18 +20,12 @@ public class Frame extends JFrame implements ActionListener{
                 
         getContentPane().setLayout(new BorderLayout());
         
-        /* Cria um objeto GLCapabilities para especificar 
-		 * o numero de bits por pixel para RGBA
-        */
         GLCapabilities glCaps = new GLCapabilities();
         glCaps.setRedBits(8);
         glCaps.setBlueBits(8);
         glCaps.setGreenBits(8);
         glCaps.setAlphaBits(8);
 
-        /* Cria um canvas, adiciona ao frame e objeto "ouvinte" 
-		 * para os eventos Gl, de mouse e teclado
-         */
         GLCanvas canvas = new GLCanvas(glCaps);
         this.add(canvas, BorderLayout.CENTER);
         canvas.addGLEventListener(renderer);

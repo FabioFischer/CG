@@ -164,14 +164,14 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case KeyEvent.VK_EQUALS:
                 switch (this.getAppMode()) {
                     case UPD_OBJECT_MODE:
-                        this.getSelectedObj().getObjTransformation().scaleStaticPoint(1.1, this.getSelectedObj().getBondBox().getCenterPoint());
+                        this.getSelectedObj().getObjTransformation().scaleStaticPoint(1.1, new Point(0, 0, 0, 1));
                         break;
                 }
                 break;
             case KeyEvent.VK_MINUS:
                 switch (this.getAppMode()) {
                     case UPD_OBJECT_MODE:
-                        this.getSelectedObj().getObjTransformation().scaleStaticPoint(0.9, this.getSelectedObj().getBondBox().getCenterPoint());
+                        this.getSelectedObj().getObjTransformation().scaleStaticPoint(0.9, new Point(0, 0, 0, 1));
                         break;
                 }
                 break;
@@ -195,6 +195,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         }
         System.out.println("AppMode: " + this.getAppMode());
         
+        this.updateGraphicWorld();
         this.glDrawable.display(); 
     }
 
@@ -308,20 +309,25 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     
     public void updateGraphicWorld() {
         switch (this.getAppMode()) {
-            case UPD_OBJECT_MODE:
-                this.setSelectedPoint(null);
-                break;
-            default:
+            case NEW_OBJECT_MODE:
                 if (this.getWorld() != null) {
                     this.getWorld().addObject(this.getNewObj());
                 }
+                break;
+            case UPD_OBJECT_MODE:
+                this.setSelectedPoint(null);
+                this.setNewObj(null);
+                break;
+            case UPD_POINT_MODE:
+                this.setNewObj(null);
+                break;
+            default:
                 this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
+                this.setNewObj(null);
                 this.setSelectedObj(null);
                 this.setSelectedPoint(null);
                 break;
         }
-        
-        this.setNewObj(null);
     }
     
     public int createWarningDialog(String message, String[] options) {
