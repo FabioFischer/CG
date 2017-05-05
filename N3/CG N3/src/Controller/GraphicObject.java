@@ -76,16 +76,22 @@ public class GraphicObject {
     }
     
     private double getXDistanceBetweenPoints(Point p1, Point p2) {
+//        System.out.println("DistanciaX: " + (((p1.getX() >= p2.getX()) ? p1.getX() : p2.getX()) 
+//                - ((p1.getX() <= p2.getX()) ? p1.getX() : p2.getX())));
         return ((p1.getX() >= p2.getX()) ? p1.getX() : p2.getX()) 
                 - ((p1.getX() <= p2.getX()) ? p1.getX() : p2.getX());
     }
     
     private double getYDistanceBetweenPoints(Point p1, Point p2) {
+//        System.out.println("DistanciaY: " + (((p1.getY() >= p2.getY()) ? p1.getY() : p2.getY()) 
+//                - ((p1.getY() <= p2.getY()) ? p1.getY() : p2.getY())));
         return ((p1.getY() >= p2.getY()) ? p1.getY() : p2.getY()) 
                 - ((p1.getY() <= p2.getY()) ? p1.getY() : p2.getY());
     }
     
     private double getZDistanceBetweenPoints(Point p1, Point p2) {
+//        System.out.println("DistanciaZ: " + (((p1.getZ() >= p2.getZ()) ? p1.getZ() : p2.getZ()) 
+//                - ((p1.getZ() <= p2.getZ()) ? p1.getZ() : p2.getZ())));
         return ((p1.getZ() >= p2.getZ()) ? p1.getZ() : p2.getZ()) 
                 - ((p1.getZ() <= p2.getZ()) ? p1.getZ() : p2.getZ());
     }
@@ -93,6 +99,7 @@ public class GraphicObject {
     public Point findNearPoint(Point p, double distance) {
         if (!this.getObjectPoints().isEmpty()) {
             for (Point objectPoint : this.getObjectPoints()) {
+//                System.out.println("ObjPontoX: " + objectPoint.getX() + " /// Y: " + objectPoint.getY());
                 if (this.getXDistanceBetweenPoints(objectPoint, p) <= distance 
                         && this.getYDistanceBetweenPoints(objectPoint, p) <= distance
                         && this.getZDistanceBetweenPoints(objectPoint, p) <= distance) {

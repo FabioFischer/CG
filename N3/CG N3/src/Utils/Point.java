@@ -22,6 +22,30 @@ public final class Point {
         return p;
     }
     
+    public void translate(Point p) {
+        this.translateX(p.getX());
+        this.translateY(p.getY());
+        this.translateZ(p.getZ());
+    }
+    
+    public void translate(double x, double y, double z) {
+        this.translateX(x);
+        this.translateY(y);
+        this.translateZ(z);
+    }
+    
+    public void translateX(double d) {
+        this.setX(this.getX() + d);
+    }
+    
+    public void translateY(double d) {
+        this.setY(this.getY() + d);
+    }
+    
+    public void translateZ(double d) {
+        this.setZ(this.getZ() + d);
+    }
+    
     public double getX() {
         return x;
     }
@@ -53,5 +77,8 @@ public final class Point {
     public void setW(double w) {
         this.w = w;
     }
-
+    
+    public void imprimirPonto() {
+        System.out.println("X: " + this.getX() + " /// Y: " + this.getY() + " /// Z: " + this.getZ());
+    }
 }
