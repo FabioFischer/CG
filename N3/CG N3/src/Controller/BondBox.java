@@ -13,6 +13,7 @@ public class BondBox {
     
     public BondBox(double xMax, double xMin, double yMax, double yMin, double zMax, double zMin) {
         this.updateBondBox(xMax, xMin, yMax, yMin, zMax, zMin);
+        this.updateCenterPoint();
     }
 
     public void updateBondBox(GraphicObject obj) {
@@ -20,19 +21,15 @@ public class BondBox {
         
         for (Point point : obj.getObjectPoints()) {
             if (!firstTime) {
-                this.setxMin(point.getX() < this.getxMin() ? point.getX() : this.getxMin());
-                this.setxMax(point.getX() > this.getxMax() ? point.getX() : this.getxMax());
-                this.setyMin(point.getY() < this.getyMin() ? point.getY() : this.getyMin());
-                this.setyMax(point.getY() > this.getyMax() ? point.getY() : this.getyMax());
-                this.setzMin(point.getZ() < this.getzMin() ? point.getY() : this.getyMin());
-                this.setzMax(point.getZ() > this.getzMax() ? point.getY() : this.getyMax());
+                this.updateBondBox(
+                        this.getHigherValue(point.getX(), this.getxMax()), 
+                        this.getLowerValue(point.getX(), this.getxMin()), 
+                        this.getHigherValue(point.getY(), this.getyMax()), 
+                        this.getLowerValue(point.getY(), this.getyMin()),
+                        this.getHigherValue(point.getZ(), this.getzMax()), 
+                        this.getLowerValue(point.getZ(), this.getzMin()));
             } else {
-                this.setxMin(point.getX());
-                this.setxMax(point.getX());
-                this.setyMin(point.getY());
-                this.setyMax(point.getY());
-                this.setzMin(point.getZ());
-                this.setzMax(point.getZ());
+                this.updateBondBox(point.getX(), point.getX(), point.getY(), point.getY(), point.getZ(), point.getZ());
                 firstTime = false;
             }
         }
@@ -47,7 +44,14 @@ public class BondBox {
         this.setyMin(yMin);
         this.setzMax(zMax);
         this.setzMin(zMin);
-        this.updateCenterPoint();
+    }
+    
+    public double getHigherValue(double d1, double d2) {
+        return d1 > d2 ? d1 : d2;
+    }
+    
+    public double getLowerValue(double d1, double d2) {
+        return d1 < d2 ? d1 : d2;
     }
     
     public double getxMax() {
