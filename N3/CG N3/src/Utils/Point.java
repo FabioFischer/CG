@@ -15,7 +15,7 @@ public final class Point {
         this.setW(w);
     }
     
-    public Point invert(Point p) {
+    public static Point invert(Point p) {
         p.setX(p.getX() * -1);
         p.setY(p.getY() * -1);
         p.setZ(p.getZ() * -1);

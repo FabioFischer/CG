@@ -9,6 +9,7 @@ import Controller.GraphicObject;
 import Controller.GraphicWorld;
 import Utils.Camera;
 import Utils.Point;
+import Utils.SRU;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -33,6 +34,8 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private GraphicWorld world;
     private Camera camera;
 
+    private SRU sru;
+    
     private Point mousePosition, selectedPoint;
     private GraphicObject newObj, selectedObj;
 
@@ -54,7 +57,8 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.setCamera(new Camera(this.getGl(), this.getGlDrawable(),
                 -this.getGlDrawable().getHeight(), this.getGlDrawable().getHeight(),
                 -this.getGlDrawable().getWidth(), this.getGlDrawable().getWidth()));
-
+        
+        this.setSru(new SRU(gl, glDrawable));
         this.setMousePosition(new Point(-1.0, -1.0, 0.0, 1.0));
         this.setAppMode(this.STAND_BY_MODE);
 
@@ -70,7 +74,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.getGl().glLoadIdentity();
         this.getCamera().display();
 
-        this.SRU();
+        this.getSru().drawSRU();
         this.getWorld().drawObjects();
         
         if (this.getNewObj() != null) {
@@ -295,22 +299,6 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         }
     }
 
-    public void SRU() {
-        this.getGl().glLineWidth(1.0f);
-
-        this.getGl().glColor3f(1.0f, 0.0f, 0.0f);
-        this.getGl().glBegin(GL.GL_LINES);
-            this.getGl().glVertex2f((-this.getGlDrawable().getHeight() / 2), 0.0f);
-            this.getGl().glVertex2f((this.getGlDrawable().getHeight() / 2), 0.0f);
-        this.getGl().glEnd();
-
-        this.getGl().glColor3f(0.0f, 1.0f, 0.0f);
-        this.getGl().glBegin(GL.GL_LINES);
-            this.getGl().glVertex2f(0.0f, (-this.getGlDrawable().getWidth() / 2));
-            this.getGl().glVertex2f(0.0f, (this.getGlDrawable().getWidth() / 2));
-        this.getGl().glEnd();
-    }
-
     public void updateMousePosition(double x, double y) {
         this.getMousePosition().setX((x - (this.getGlDrawable().getHeight() / 2)) * 2);
         this.getMousePosition().setY(-(y - (this.getGlDrawable().getWidth() / 2)) * 2);
@@ -409,5 +397,13 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
 
     public void setSelectedObj(GraphicObject selectedObj) {
         this.selectedObj = selectedObj;
+    }
+
+    public SRU getSru() {
+        return sru;
+    }
+
+    public void setSru(SRU sru) {
+        this.sru = sru;
     }
 }
