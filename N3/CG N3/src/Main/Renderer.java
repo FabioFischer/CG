@@ -9,6 +9,7 @@ import Controller.GraphicObject;
 import Controller.GraphicWorld;
 import Utils.Camera;
 import Utils.Point;
+import Utils.SRU;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -33,6 +34,8 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private GraphicWorld world;
     private Camera camera;
 
+    private SRU sru;
+    
     private Point mousePosition, selectedPoint;
     private GraphicObject newObj, selectedObj;
 
@@ -54,7 +57,8 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.setCamera(new Camera(this.getGl(), this.getGlDrawable(),
                 -this.getGlDrawable().getHeight(), this.getGlDrawable().getHeight(),
                 -this.getGlDrawable().getWidth(), this.getGlDrawable().getWidth()));
-
+        
+        this.setSru(new SRU(gl, glDrawable));
         this.setMousePosition(new Point(-1.0, -1.0, 0.0, 1.0));
         this.setAppMode(this.STAND_BY_MODE);
 
@@ -70,7 +74,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.getGl().glLoadIdentity();
         this.getCamera().display();
 
-        this.SRU();
+        this.getSru().drawSRU();
         this.getWorld().drawObjects();
         
         if (this.getNewObj() != null) {
@@ -78,9 +82,12 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         }
                         
         if (this.getSelectedPoint() != null) {
-            this.getNewObj().drawPoint(this.getSelectedPoint());
+            if (this.getNewObj() != null) {
+                this.getNewObj().drawPoint(this.getSelectedPoint());
+            } else if (this.getSelectedObj() != null) {
+                this.getSelectedObj().drawPoint(this.getSelectedPoint());
+            }
         }
-        
         this.getGl().glFlush();
     }
 
@@ -115,34 +122,63 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 this.setAppMode(this.SEL_OBJECT_MODE);
                 break;
             case KeyEvent.VK_E:
-                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    this.getSelectedObj().getObjTransformation().translate3D(-5, 0, 0);
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        this.getSelectedObj().getObjTransformation().translate3D(-5, 0, 0);
+                        break;
+                    case UPD_POINT_MODE:
+                        this.getSelectedPoint().translate(-5, 0, 0);
+                        break;
                 }
                 break;
             case KeyEvent.VK_D:
-                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    this.getSelectedObj().getObjTransformation().translate3D(5, 0, 0);
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        this.getSelectedObj().getObjTransformation().translate3D(5, 0, 0);
+                        break;
+                    case UPD_POINT_MODE:
+                        this.getSelectedPoint().imprimirPonto();
+                        this.getSelectedPoint().translate(5, 0, 0);
+                        this.getSelectedPoint().imprimirPonto();
+                        break;
                 }
                 break;
             case KeyEvent.VK_C:
-                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    this.getSelectedObj().getObjTransformation().translate3D(0, 5, 0);
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        this.getSelectedObj().getObjTransformation().translate3D(0, 5, 0);
+                        break;
+                    case UPD_POINT_MODE:
+                        this.getSelectedPoint().translate(0, 5, 0);
+                        break;
                 }
                 break;
             case KeyEvent.VK_B:
-                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    this.getSelectedObj().getObjTransformation().translate3D(0, -5, 0);
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        this.getSelectedObj().getObjTransformation().translate3D(0, -5, 0);
+                        break;
+                    case UPD_POINT_MODE:
+                        this.getSelectedPoint().translate(0, -5, 0);
+                        break;
                 }
                 break;
             case KeyEvent.VK_DELETE:
-                if (this.getAppMode() == this.UPD_OBJECT_MODE) {
-                    int ans = this.createWarningDialog("Tem certeza que deseja excluir o objeto selecionado?", new String[]{"Não", "Sim"});
-                                    
-                    if (ans != 0) {
-                        this.setAppMode(SEL_OBJECT_MODE);
-                        this.getWorld().deleteObject(this.getSelectedObj());                    
-                        this.updateGraphicWorld();
-                    }
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        if (this.createWarningDialog("Tem certeza que deseja excluir o objeto selecionado?", new String[]{"Não", "Sim"}) != 0) {
+                            this.setAppMode(SEL_OBJECT_MODE);
+                            this.getWorld().deleteObject(this.getSelectedObj());                    
+                            this.updateGraphicWorld();
+                        }
+                        break;
+                    case UPD_POINT_MODE:
+                        if (this.createWarningDialog("Tem certeza que deseja excluir o ponto selecionado?", new String[]{"Não", "Sim"}) != 0) {
+                            this.setAppMode(SEL_OBJECT_MODE);
+                            this.getSelectedObj().deletePoint(this.getSelectedPoint());             
+                            this.updateGraphicWorld();
+                        }
+                        break;
                 }
         }
         System.out.println("AppMode: " + this.getAppMode());
@@ -180,11 +216,13 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case SEL_OBJECT_MODE:
                 if (this.getSelectedObj() != null) {
                     this.setAppMode(this.UPD_OBJECT_MODE);
-                }
-                
+                }                
                 this.getGlDrawable().display();
                 break;
             case UPD_OBJECT_MODE:
+                if (this.getSelectedPoint() != null) {
+                    this.setAppMode(this.UPD_POINT_MODE);
+                }
                 this.getGlDrawable().display();
                 break;
             case UPD_POINT_MODE:
@@ -227,8 +265,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 this.getGlDrawable().display();
                 break;
             case SEL_OBJECT_MODE:
-                this.updateMousePosition(e.getX(), e.getY());
-                
+                this.updateMousePosition(e.getX(), e.getY());                
                 this.setSelectedObj(this.getWorld().getObjectByPosition(this.getMousePosition()));
                 
                 if(this.getSelectedObj() != null) {
@@ -240,6 +277,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 this.getGlDrawable().display();
                 break;
             case UPD_OBJECT_MODE:
+                this.updateMousePosition(e.getX(), e.getY());
                 this.setSelectedPoint(this.getSelectedObj().findNearPoint(mousePosition, 10));
                 this.getGlDrawable().display();
                 break;
@@ -253,30 +291,12 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     public void mouseWheelMoved(MouseWheelEvent e) {
         switch (e.getWheelRotation()) {
             case -1:
-                // Zoon In
                 this.camera.zoonIn(15.0f);
                 break;
             case 1:
-                // Zoon Out
                 this.camera.zoonOut(15.0f);
                 break;
         }
-    }
-
-    public void SRU() {
-        this.getGl().glLineWidth(1.0f);
-
-        this.getGl().glColor3f(1.0f, 0.0f, 0.0f);
-        this.getGl().glBegin(GL.GL_LINES);
-            this.getGl().glVertex2f((-this.getGlDrawable().getHeight() / 2), 0.0f);
-            this.getGl().glVertex2f((this.getGlDrawable().getHeight() / 2), 0.0f);
-        this.getGl().glEnd();
-
-        this.getGl().glColor3f(0.0f, 1.0f, 0.0f);
-        this.getGl().glBegin(GL.GL_LINES);
-            this.getGl().glVertex2f(0.0f, (-this.getGlDrawable().getWidth() / 2));
-            this.getGl().glVertex2f(0.0f, (this.getGlDrawable().getWidth() / 2));
-        this.getGl().glEnd();
     }
 
     public void updateMousePosition(double x, double y) {
@@ -288,13 +308,19 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         if (this.getWorld() != null) {
             this.getWorld().addObject(this.getNewObj());
         }
-        if (this.getAppMode() != this.UPD_POINT_MODE && this.getAppMode() != this.UPD_OBJECT_MODE) {
-            this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
-            this.setSelectedObj(null);
+        
+        switch (this.getAppMode()) {
+            case UPD_OBJECT_MODE:
+                this.setSelectedPoint(null);
+                break;
+            default:
+                this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
+                this.setSelectedObj(null);
+                this.setSelectedPoint(null);
+                break;
         }
         
         this.setNewObj(null);
-        this.setSelectedPoint(((this.getAppMode() != this.UPD_POINT_MODE) ? null : this.getSelectedPoint()));
     }
     
     public int createWarningDialog(String message, String[] options) {
@@ -371,5 +397,13 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
 
     public void setSelectedObj(GraphicObject selectedObj) {
         this.selectedObj = selectedObj;
+    }
+
+    public SRU getSru() {
+        return sru;
+    }
+
+    public void setSru(SRU sru) {
+        this.sru = sru;
     }
 }

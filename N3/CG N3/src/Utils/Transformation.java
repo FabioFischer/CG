@@ -78,8 +78,6 @@ public final class Transformation {
                     + this.getMatrix()[(i%4)+12] * t.getMatrix()[i/4*4+3];
         }
         
-        newT.exibeMatriz();
-        
         return newT;
     }
     

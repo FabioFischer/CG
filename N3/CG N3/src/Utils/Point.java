@@ -15,11 +15,35 @@ public final class Point {
         this.setW(w);
     }
     
-    public Point invert(Point p) {
+    public static Point invert(Point p) {
         p.setX(p.getX() * -1);
         p.setY(p.getY() * -1);
         p.setZ(p.getZ() * -1);
         return p;
+    }
+    
+    public void translate(Point p) {
+        this.translateX(p.getX());
+        this.translateY(p.getY());
+        this.translateZ(p.getZ());
+    }
+    
+    public void translate(double x, double y, double z) {
+        this.translateX(x);
+        this.translateY(y);
+        this.translateZ(z);
+    }
+    
+    public void translateX(double d) {
+        this.setX(this.getX() + d);
+    }
+    
+    public void translateY(double d) {
+        this.setY(this.getY() + d);
+    }
+    
+    public void translateZ(double d) {
+        this.setZ(this.getZ() + d);
     }
     
     public double getX() {
@@ -53,5 +77,8 @@ public final class Point {
     public void setW(double w) {
         this.w = w;
     }
-
+    
+    public void imprimirPonto() {
+        System.out.println("X: " + this.getX() + " /// Y: " + this.getY() + " /// Z: " + this.getZ());
+    }
 }
