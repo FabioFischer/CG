@@ -33,10 +33,9 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private GLAutoDrawable glDrawable;
     private GraphicWorld world;
     private Camera camera;
-
     private SRU sru;
     
-    private Point mousePosition, selectedPoint;
+    private Point selectedPoint;
     private GraphicObject newObj, selectedObj;
 
     private int appMode;
@@ -46,6 +45,8 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private static final int SEL_OBJECT_MODE = 3;
     private static final int UPD_OBJECT_MODE = 4;
     private static final int UPD_POINT_MODE = 5;
+    
+    private Point mousePosition = new Point(-1.0, -1.0, 0.0, 1.0);
 
     @Override
     public void init(GLAutoDrawable glad) {
@@ -59,7 +60,6 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 -this.getGlDrawable().getWidth(), this.getGlDrawable().getWidth()));
         
         this.setSru(new SRU(gl, glDrawable));
-        this.setMousePosition(new Point(-1.0, -1.0, 0.0, 1.0));
         this.setAppMode(this.STAND_BY_MODE);
 
         this.getGlDrawable().setGL(new DebugGL(this.getGl()));
@@ -137,9 +137,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                         this.getSelectedObj().getObjTransformation().translate3D(5, 0, 0);
                         break;
                     case UPD_POINT_MODE:
-                        this.getSelectedPoint().imprimirPonto();
                         this.getSelectedPoint().translate(5, 0, 0);
-                        this.getSelectedPoint().imprimirPonto();
                         break;
                 }
                 break;
@@ -160,6 +158,20 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                         break;
                     case UPD_POINT_MODE:
                         this.getSelectedPoint().translate(0, -5, 0);
+                        break;
+                }
+                break;
+            case KeyEvent.VK_EQUALS:
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        this.getSelectedObj().getObjTransformation().scaleStaticPoint(1.1, this.getSelectedObj().getBondBox().getCenterPoint());
+                        break;
+                }
+                break;
+            case KeyEvent.VK_MINUS:
+                switch (this.getAppMode()) {
+                    case UPD_OBJECT_MODE:
+                        this.getSelectedObj().getObjTransformation().scaleStaticPoint(0.9, this.getSelectedObj().getBondBox().getCenterPoint());
                         break;
                 }
                 break;
@@ -191,43 +203,39 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {        
-        switch (this.getAppMode()) {
-            case STAND_BY_MODE:
-                break;
-            case NEW_OBJECT_MODE:
-                this.updateMousePosition(e.getX(), e.getY());
-                
-                this.setNewObj((this.getNewObj() == null) 
-                        ? new GraphicObject(this.getGl(), GraphicObject.NEW_OBJ_MODE_COLOR, 3)
-                        : this.getNewObj());
-                
-                if (this.getSelectedPoint() != null) {
-                    this.getNewObj().addPoint(this.getSelectedPoint());                    
-                } else {
-                    Point newP = new Point(this.getMousePosition().getX(), this.getMousePosition().getY(), 0, 1);
-                
-                    if(this.getCamera().getBondBox().isInside(newP)) {
-                        this.getNewObj().addPoint(newP);
+    public void mouseClicked(MouseEvent e) {
+        if (this.getAppMode() != STAND_BY_MODE) { 
+            switch (this.getAppMode()) {
+                case NEW_OBJECT_MODE:
+                    this.updateMousePosition(e.getX(), e.getY());
+
+                    this.setNewObj((this.getNewObj() == null) 
+                            ? new GraphicObject(this.getGl(), GraphicObject.NEW_OBJ_MODE_COLOR, 3)
+                            : this.getNewObj());
+
+                    if (this.getSelectedPoint() != null) {
+                        this.getNewObj().addPoint(this.getSelectedPoint());
+                    } else {
+                        Point newP = new Point(this.getMousePosition().getX(), this.getMousePosition().getY(), 0, 1);
+
+                        if(this.getCamera().getBondBox().isInside(newP)) {
+                            this.getNewObj().addPoint(newP);
+                        }
                     }
-                }
-                this.getGlDrawable().display();
-                break;
-            case SEL_OBJECT_MODE:
-                if (this.getSelectedObj() != null) {
-                    this.setAppMode(this.UPD_OBJECT_MODE);
-                }                
-                this.getGlDrawable().display();
-                break;
-            case UPD_OBJECT_MODE:
-                if (this.getSelectedPoint() != null) {
-                    this.setAppMode(this.UPD_POINT_MODE);
-                }
-                this.getGlDrawable().display();
-                break;
-            case UPD_POINT_MODE:
-                this.getGlDrawable().display();
-                break;
+                    break;
+                case SEL_OBJECT_MODE:
+                    if (this.getSelectedObj() != null) {
+                        this.setAppMode(this.UPD_OBJECT_MODE);
+                    }
+                    break;
+                case UPD_OBJECT_MODE:
+                    if (this.getSelectedPoint() != null) {
+                        this.setAppMode(this.UPD_POINT_MODE);
+                    }
+                    break;
+            }
+            
+            this.getGlDrawable().display();            
         }
     }
 
@@ -253,37 +261,31 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        switch (this.getAppMode()) {
-            case STAND_BY_MODE:
-                break;
-            case NEW_OBJECT_MODE:
-                this.updateMousePosition(e.getX(), e.getY());
+        if (this.getAppMode() != STAND_BY_MODE) {
+            this.updateMousePosition(e.getX(), e.getY());
+            
+            switch (this.getAppMode()) {
+                case NEW_OBJECT_MODE:
+                    if (this.getNewObj() != null) {
+                        this.setSelectedPoint(this.getNewObj().findNearPoint(this.getMousePosition(), 10));
+                    }
+                    break;
+                case SEL_OBJECT_MODE:              
+                    this.setSelectedObj(this.getWorld().getObjectByPosition(this.getMousePosition()));
 
-                if (this.getNewObj() != null) {
-                    this.setSelectedPoint(this.getNewObj().findNearPoint(this.getMousePosition(), 10));
-                }
-                this.getGlDrawable().display();
-                break;
-            case SEL_OBJECT_MODE:
-                this.updateMousePosition(e.getX(), e.getY());                
-                this.setSelectedObj(this.getWorld().getObjectByPosition(this.getMousePosition()));
-                
-                if(this.getSelectedObj() != null) {
-                    this.getSelectedObj().setColor(GraphicObject.SEL_OBJ_MODE_COLOR);
-                } else {
-                    this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
-                }
-                
-                this.getGlDrawable().display();
-                break;
-            case UPD_OBJECT_MODE:
-                this.updateMousePosition(e.getX(), e.getY());
-                this.setSelectedPoint(this.getSelectedObj().findNearPoint(mousePosition, 10));
-                this.getGlDrawable().display();
-                break;
-            case UPD_POINT_MODE:
-                this.getGlDrawable().display();
-                break;
+                    if(this.getSelectedObj() != null) {
+                        this.getSelectedObj().setColor(GraphicObject.SEL_OBJ_MODE_COLOR);
+                    } else {
+                        this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
+                    }
+
+                    break;
+                case UPD_OBJECT_MODE:
+                    this.setSelectedPoint(this.getSelectedObj().findNearPoint(mousePosition, 10));
+                    break;
+            }
+            
+            this.getGlDrawable().display();
         }
     }
 
@@ -305,15 +307,14 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     }
     
     public void updateGraphicWorld() {
-        if (this.getWorld() != null) {
-            this.getWorld().addObject(this.getNewObj());
-        }
-        
         switch (this.getAppMode()) {
             case UPD_OBJECT_MODE:
                 this.setSelectedPoint(null);
                 break;
             default:
+                if (this.getWorld() != null) {
+                    this.getWorld().addObject(this.getNewObj());
+                }
                 this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
                 this.setSelectedObj(null);
                 this.setSelectedPoint(null);
