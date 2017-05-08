@@ -90,6 +90,8 @@ public class GraphicObject {
     }
     
     public Point findNearPoint(Point p, double distance) {
+        System.out.println("Ponto X: " + p.getX() + " //// Y: " + p.getY());
+        this.exibeVertices();
         if (!this.getObjectPoints().isEmpty()) {
             for (Point objectPoint : this.getObjectPoints()) {
                 if (this.getXDistanceBetweenPoints(objectPoint, p) <= distance 
@@ -199,9 +201,9 @@ public class GraphicObject {
 //            this.getObjTransformation().getMainMatrix().exibeMatriz();
 //    }
 //
-//    public void exibeVertices() {
-//        for (Point p : this.getObjectPoints()) {
-//            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
-//        }
-//    }
+    public void exibeVertices() {;
+        for (Point p : this.getObjectPoints()) {
+            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
+        }
+    }
 }

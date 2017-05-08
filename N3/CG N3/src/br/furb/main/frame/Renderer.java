@@ -28,9 +28,9 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private Camera camera;
     private SRU sru;
     
-    private Point selectedPoint;
+    private Point newPoint, selectedPoint;
     private GraphicObject newObj, selectedObj;
-    private Vertex selectedVertex;
+    private Vertex newVertex, selectedVertex;
 
     private int appMode;
 
@@ -82,6 +82,11 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 this.getSelectedObj().drawPoint(this.getSelectedPoint());
             }
         }
+        
+        if (this.getNewVertex() != null) {
+            this.getNewVertex().drawVertex();
+        }
+        
         this.getGl().glFlush();
     }
 
@@ -217,18 +222,21 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             switch (this.getAppMode()) {
                 case NEW_OBJECT_MODE:
                     this.updateMousePosition(e.getX(), e.getY());
-
+                    
                     this.setNewObj((this.getNewObj() == null) 
                             ? new GraphicObject(this.getGl(), GraphicObject.NEW_OBJ_MODE_COLOR, 3)
                             : this.getNewObj());
 
                     if (this.getSelectedPoint() != null) {
                         this.getNewObj().addPoint(this.getSelectedPoint());
-                    } else {
-                        Point newP = new Point(this.getMousePosition().getX(), this.getMousePosition().getY(), 0, 1);
-
-                        if(this.getCamera().getBondBox().isInside(newP)) {
+                        this.setNewPoint(this.getSelectedPoint());
+                        
+                    } else {                        
+                        if(this.getCamera().getBondBox().isInside(this.getMousePosition())) {
+                            Point newP = new Point(this.getMousePosition().getX(), this.getMousePosition().getY(), 0, 1);
+                            
                             this.getNewObj().addPoint(newP);
+                            this.setNewPoint(newP);
                         }
                     }
                     break;
@@ -276,7 +284,18 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             switch (this.getAppMode()) {
                 case NEW_OBJECT_MODE:
                     if (this.getNewObj() != null) {
-                        this.setSelectedPoint(this.getNewObj().findNearPoint(this.getMousePosition(), 10));
+                        if (this.getNewObj().getObjectPoints().size() > 1) {
+                            this.setSelectedPoint(this.getNewObj().findNearPoint(this.getMousePosition(), 10));
+                        }
+                        
+                        if (this.getNewPoint() != null) {
+                            if (this.getNewVertex() != null) { 
+                                this.getNewVertex().setP1(this.getNewPoint());
+                                this.getNewVertex().setP2(this.getMousePosition());
+                            } else {
+                                this.setNewVertex(new Vertex(this.getGl(), this.getNewObj().getColor(), this.getNewObj().getWidth(), this.getNewPoint(), this.getMousePosition()));
+                            }
+                        }
                     }
                     break;
                 case SEL_OBJECT_MODE:              
@@ -310,7 +329,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 break;
         }
     }
-
+    
     public void updateMousePosition(double x, double y) {
         this.getMousePosition().setX((x - (this.getGlDrawable().getHeight() / 2)) * 2);
         this.getMousePosition().setY(-(y - (this.getGlDrawable().getWidth() / 2)) * 2);
@@ -326,15 +345,21 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case UPD_OBJECT_MODE:
                 this.setSelectedPoint(null);
                 this.setNewObj(null);
+                this.setNewVertex(null);
+                this.setNewPoint(null);
                 break;
             case UPD_POINT_MODE:
                 this.setNewObj(null);
+                this.setNewVertex(null);
+                this.setNewPoint(null);
                 break;
             default:
                 this.getWorld().updateObjectsColor(GraphicObject.STAND_BY_MODE_COLOR);
                 this.setNewObj(null);
                 this.setSelectedObj(null);
                 this.setSelectedPoint(null);
+                this.setNewVertex(null);
+                this.setNewPoint(null);
                 break;
         }
     }
@@ -429,5 +454,21 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
 
     public void setSru(SRU sru) {
         this.sru = sru;
+    }
+
+    public Point getNewPoint() {
+        return newPoint;
+    }
+
+    public void setNewPoint(Point newPoint) {
+        this.newPoint = newPoint;
+    }
+
+    public Vertex getNewVertex() {
+        return newVertex;
+    }
+
+    public void setNewVertex(Vertex newVertex) {
+        this.newVertex = newVertex;
     }
 }
