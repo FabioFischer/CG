@@ -9,6 +9,14 @@ import javax.media.opengl.GLCapabilities;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public class Frame extends JFrame implements ActionListener{
     
     private Renderer renderer  = new Renderer();
@@ -41,6 +49,5 @@ public class Frame extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }    
 }

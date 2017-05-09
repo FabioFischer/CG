@@ -1,5 +1,13 @@
 package br.furb.main.utils;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public final class Transformation {
 
     public static final double DEG_TO_RAD = 0.017453292519943295769236907684886;

@@ -1,5 +1,15 @@
 package br.furb.main.utils;
 
+import java.util.Random;
+
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public class Color {
     private double red, green, blue;
     
@@ -9,6 +19,11 @@ public class Color {
         this.setBlue(blue);
     }
 
+    public static Color getRandomColor () {
+        Random rand = new Random();        
+        return new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+    }
+    
     public double getRed() {
         return red;
     }

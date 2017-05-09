@@ -1,16 +1,24 @@
 package br.furb.main.utils;
 
-import br.furb.main.controller.BondBox;
+import br.furb.main.controller.BoundBox;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
+
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
 
 public class Camera {
 
     private GL gl;
     private GLAutoDrawable glDrawable;
     private GLU glu;
-    private BondBox bondBox;
+    private BoundBox bondBox;
 
     private float ortho2D_minX, ortho2D_maxX, ortho2D_minY, ortho2D_maxY;
     private final float ZOOM_FACTOR = 4.0f;
@@ -25,7 +33,7 @@ public class Camera {
         this.ortho2D_minY = ortho2D_minY;
         this.ortho2D_maxY = ortho2D_maxY;
         
-        this.setBondBox(new BondBox(ortho2D_maxX, ortho2D_minX, ortho2D_maxY, ortho2D_minY, 0, 0));
+        this.setBondBox(new BoundBox(ortho2D_maxX, ortho2D_minX, ortho2D_maxY, ortho2D_minY, 0, 0));
     }
 
     public void display() {
@@ -91,11 +99,11 @@ public class Camera {
         }
     }
 
-    public BondBox getBondBox() {
+    public BoundBox getBondBox() {
         return bondBox;
     }
 
-    private void setBondBox(BondBox bondBox) {
+    private void setBondBox(BoundBox bondBox) {
         this.bondBox = bondBox;
     }
 }

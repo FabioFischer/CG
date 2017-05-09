@@ -1,5 +1,13 @@
 package br.furb.main.utils;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public final class Point {
 
     private double x, y, z, w;

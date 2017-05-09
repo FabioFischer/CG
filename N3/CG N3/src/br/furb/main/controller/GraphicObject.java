@@ -6,37 +6,46 @@ import br.furb.main.utils.Point;
 import java.util.ArrayList;
 import javax.media.opengl.GL;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public class GraphicObject {
     
     private final int primitive = GL.GL_LINE_STRIP;
     
-    private GL gl;
-    private Color color; 
-    private double width;
-    private ArrayList<Point> objectPoints;
-    
-    private BondBox bondBox;
-    private ObjectTransformation objTransformation;
-
     public static final Color STAND_BY_MODE_COLOR = new Color(0, 0, 0);
     public static final Color NEW_OBJ_MODE_COLOR = new Color(0, 0, 1);
     public static final Color SEL_OBJ_MODE_COLOR = new Color(0, 1, 0);
     public static final Color DEL_OBJ_MODE_COLOR = new Color(1, 0, 0);
     
+    private GL gl;
+    private Color currentColor, defaultColor; 
+    private double width;
+    private ArrayList<Point> objectPoints;
+    
+    private BoundBox bondBox;
+    private ObjectTransformation objTransformation;
+    
     public GraphicObject(GL gl, Color color, float width) {
         this.setGl(gl);
-        this.setColor(color);
+        this.setCurrentColor(color);
+        this.setDefaultColor(this.STAND_BY_MODE_COLOR);
         this.setWidth(width);
         this.setObjectPoints(new ArrayList<>());
         
-        this.setBondBox(new BondBox(this));
+        this.setBondBox(new BoundBox(this));
         this.setObjTransformation(new ObjectTransformation());
     }
     
     public void drawObject() {
-        this.getGl().glColor3d(this.getColor().getRed(), 
-                this.getColor().getGreen(), 
-                this.getColor().getBlue());
+        this.getGl().glColor3d(this.getCurrentColor().getRed(), 
+                this.getCurrentColor().getGreen(), 
+                this.getCurrentColor().getBlue());
         this.getGl().glLineWidth((float)this.getWidth());
         
         this.getGl().glPushMatrix();
@@ -50,9 +59,9 @@ public class GraphicObject {
     }
     
     public void drawPoint(Point p) {
-        this.getGl().glColor3d(this.getColor().getRed() + 0.2, 
-                this.getColor().getGreen() + 0.2, 
-                this.getColor().getBlue() + 0.2);
+        this.getGl().glColor3d(this.getCurrentColor().getRed() + 0.2, 
+                this.getCurrentColor().getGreen() + 0.2, 
+                this.getCurrentColor().getBlue() + 0.2);
         this.getGl().glPointSize((float)(this.getWidth()*4));
         
         this.getGl().glBegin(GL.GL_POINTS);
@@ -155,12 +164,20 @@ public class GraphicObject {
         this.gl = gl;
     }
 
-    public Color getColor() {
-        return color;
+    public Color getCurrentColor() {
+        return currentColor;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setCurrentColor(Color currentColor) {
+        this.currentColor = currentColor;
+    }
+
+    public Color getDefaultColor() {
+        return defaultColor;
+    }
+
+    public void setDefaultColor(Color defaultColor) {
+        this.defaultColor = defaultColor;
     }
 
     public double getWidth() {
@@ -179,11 +196,11 @@ public class GraphicObject {
         this.objectPoints = objectPoints;
     }
 
-    public BondBox getBondBox() {
+    public BoundBox getBondBox() {
         return bondBox;
     }
 
-    public void setBondBox(BondBox bondBox) {
+    public void setBondBox(BoundBox bondBox) {
         this.bondBox = bondBox;
     }
 
@@ -199,9 +216,9 @@ public class GraphicObject {
 //            this.getObjTransformation().getMainMatrix().exibeMatriz();
 //    }
 //
-//    public void exibeVertices() {
-//        for (Point p : this.getObjectPoints()) {
-//            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
-//        }
-//    }
+    public void exibeVertices() {;
+        for (Point p : this.getObjectPoints()) {
+            System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");
+        }
+    }
 }

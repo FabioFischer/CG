@@ -3,6 +3,14 @@ package br.furb.main.utils;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLDrawable;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public class SRU {
 
     private GL gl;

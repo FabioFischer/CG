@@ -1,9 +1,16 @@
 package br.furb.main.controller;
 
-import br.furb.main.controller.GraphicObject;
 import br.furb.main.utils.Color;
 import br.furb.main.utils.Point;
 import java.util.ArrayList;
+
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
 
 public class GraphicWorld {
     
@@ -37,14 +44,22 @@ public class GraphicWorld {
 
     public void updateObjectColor(Color c, GraphicObject obj) {
         if (this.getObjects().contains(obj)) {
-            this.getObjects().get(this.getObjects().indexOf(obj)).setColor(c);
+            this.getObjects().get(this.getObjects().indexOf(obj)).setCurrentColor(c);
         }
     }
 
     public void updateObjectsColor(Color c) {
         if (!this.getObjects().isEmpty()) {
             for (GraphicObject object : this.getObjects()) {
-                object.setColor(c);
+                object.setCurrentColor(c);
+            }
+        }
+    }
+
+    public void updateObjectsColorToDefault() {
+        if (!this.getObjects().isEmpty()) {
+            for (GraphicObject object : this.getObjects()) {
+                object.setCurrentColor(object.getDefaultColor());
             }
         }
     }
@@ -87,7 +102,7 @@ public class GraphicWorld {
             for (Point objectPoint : object.getObjectPoints()) {
                 if (prevPoint != null) {
                     if (Vertex.isPointOnVertexLine(p, prevPoint, objectPoint)) {
-                        return new Vertex(object.getGl(), object.getColor(), object.getWidth(), prevPoint, objectPoint);
+                        return new Vertex(object.getGl(), object.getCurrentColor(), object.getWidth(), prevPoint, objectPoint);
                     }
                 } else {
                     prevPoint = objectPoint;

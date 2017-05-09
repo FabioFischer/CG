@@ -1,17 +1,24 @@
 package br.furb.main.controller;
 
-import br.furb.main.controller.GraphicObject;
 import br.furb.main.utils.Point;
 
-public class BondBox {
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
+public class BoundBox {
     private double xMax, xMin, yMax, yMin, zMax, zMin;
     private Point centerPoint = null;
     
-    public BondBox(GraphicObject obj) {
+    public BoundBox(GraphicObject obj) {
         this.updateBondBox(obj);
     }
     
-    public BondBox(double xMax, double xMin, double yMax, double yMin, double zMax, double zMin) {
+    public BoundBox(double xMax, double xMin, double yMax, double yMin, double zMax, double zMin) {
         this.updateBondBox(xMax, xMin, yMax, yMin, zMax, zMin);
         this.updateCenterPoint();
     }
