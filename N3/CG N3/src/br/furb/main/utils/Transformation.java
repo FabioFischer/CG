@@ -45,39 +45,39 @@ public final class Transformation {
         this.setIdentity();
         this.getMatrix()[5] = Math.cos(radians);
         this.getMatrix()[6] = Math.sin(radians);
-        this.getMatrix()[9] = -Math.cos(radians);
-        this.getMatrix()[10] = Math.sin(radians);
+        this.getMatrix()[9] = -Math.sin(radians);
+        this.getMatrix()[10] = Math.cos(radians);
     }
     
     public void rotateY(double radians) {
         this.setIdentity();
         this.getMatrix()[0] = Math.cos(radians);
         this.getMatrix()[2] = -Math.sin(radians);
-        this.getMatrix()[8] = Math.cos(radians);
-        this.getMatrix()[10] = Math.sin(radians);
+        this.getMatrix()[8] = Math.sin(radians);
+        this.getMatrix()[10] = Math.cos(radians);
     }
     
     public void rotateZ(double radians) {
         this.setIdentity();
         this.getMatrix()[0] = Math.cos(radians);
         this.getMatrix()[1] = Math.sin(radians);
-        this.getMatrix()[4] = -Math.cos(radians);
-        this.getMatrix()[5] = Math.sin(radians);
+        this.getMatrix()[4] = -Math.sin(radians);
+        this.getMatrix()[5] = Math.cos(radians);
     }
     
     public Point transformPoint(Point p) {
         Point newP = new Point(
-                this.getMatrix()[0] + this.getMatrix()[4] + this.getMatrix()[8] + this.getMatrix()[12], 
-                this.getMatrix()[1] + this.getMatrix()[5] + this.getMatrix()[9] + this.getMatrix()[13], 
-                this.getMatrix()[2] + this.getMatrix()[6] + this.getMatrix()[10] + this.getMatrix()[14], 
-                this.getMatrix()[3] + this.getMatrix()[7] + this.getMatrix()[11] + this.getMatrix()[15]);
+                this.getMatrix()[0] * p.getX() + this.getMatrix()[4] * p.getY() + this.getMatrix()[8] * p.getZ() + this.getMatrix()[12] * p.getW(), 
+                this.getMatrix()[1] * p.getX() + this.getMatrix()[5] * p.getY() + this.getMatrix()[9] * p.getZ() + this.getMatrix()[13] * p.getW(), 
+                this.getMatrix()[2] * p.getX() + this.getMatrix()[6] * p.getY() + this.getMatrix()[10] * p.getZ() + this.getMatrix()[14] * p.getW(), 
+                this.getMatrix()[3] * p.getX() + this.getMatrix()[7] * p.getY() + this.getMatrix()[11] * p.getZ() + this.getMatrix()[15] * p.getW());
         return newP;
     }
     
     public Transformation transformMatrix(Transformation t) {
         Transformation newT = new Transformation();
         
-        for (int i = 0; i < newT.getMatrix().length; i++) {
+        for (int i = 0; i < 16; i++) {
             newT.getMatrix()[i] = 
                       this.getMatrix()[i%4] * t.getMatrix()[i/4*4] 
                     + this.getMatrix()[(i%4)+4] * t.getMatrix()[i/4*4+1] 

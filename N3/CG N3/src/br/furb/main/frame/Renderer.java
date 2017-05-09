@@ -116,7 +116,6 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     @Override
     public void keyPressed(KeyEvent e) {
         this.updateGraphicWorld();
-        System.out.println(e.getKeyCode());
         
         switch (e.getKeyCode()) {
             case KeyEvent.VK_1:
@@ -223,7 +222,6 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                         break;
                 }
         }
-        System.out.println("AppMode: " + this.getAppMode());
         
         this.updateGraphicWorld();
         this.glDrawable.display(); 
