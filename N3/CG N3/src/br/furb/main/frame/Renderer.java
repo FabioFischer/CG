@@ -39,7 +39,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     
     private Point newPoint, selectedPoint;
     private GraphicObject newObj, selectedObj;
-    private Vertex newVertex, selectedVertex;
+    private Vertex newVertex;
 
     private static final int STAND_BY_MODE = 1;
     private static final int NEW_OBJECT_MODE = 2;
@@ -325,7 +325,6 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                     break;
                 case UPD_OBJECT_MODE:
                     this.setSelectedPoint(this.getSelectedObj().findNearPoint(this.getMousePosition(), 10));
-                    this.setSelectedVertex(this.getWorld().findVertexByPosition(this.getMousePosition(), 5));
                     break;
             }
             
@@ -385,14 +384,6 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     
     public int createWarningDialog(String message, String[] options) {
         return JOptionPane.showOptionDialog(null,message, "Atenção!", 0, JOptionPane.WARNING_MESSAGE, null, options, null);
-    }
-
-    public Vertex getSelectedVertex() {
-        return selectedVertex;
-    }
-
-    public void setSelectedVertex(Vertex selectedVertex) {
-        this.selectedVertex = selectedVertex;
     }
     
     public GL getGl() {

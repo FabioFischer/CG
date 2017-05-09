@@ -26,7 +26,9 @@ public class GraphicObject {
     private GL gl;
     private Color currentColor, defaultColor; 
     private double width;
+    
     private ArrayList<Point> objectPoints;
+    private ArrayList<GraphicObject> dependentObjects;
     
     private BoundBox bondBox;
     private ObjectTransformation objTransformation;
@@ -37,6 +39,7 @@ public class GraphicObject {
         this.setDefaultColor(this.STAND_BY_MODE_COLOR);
         this.setWidth(width);
         this.setObjectPoints(new ArrayList<>());
+        this.setDependentObjects(new ArrayList<>());
         
         this.setBondBox(new BoundBox(this));
         this.setObjTransformation(new ObjectTransformation());
@@ -56,6 +59,13 @@ public class GraphicObject {
                 }
             this.getGl().glEnd();
         this.getGl().glPopMatrix();
+        
+        
+        for (GraphicObject obj : this.getDependentObjects()) {
+            if (obj != null) {
+                obj.drawObject();
+            }
+        }
     }
     
     public void drawPoint(Point p) {
@@ -80,6 +90,19 @@ public class GraphicObject {
         if (this.getObjectPoints().contains(p)) {
             this.getObjectPoints().remove(p);
             this.getBondBox().updateBondBox(this);
+        }
+    }
+    
+    public void addDependent(GraphicObject obj) {
+        if (obj != null) {
+            this.getDependentObjects().add(obj);
+            obj.setObjTransformation(this.getObjTransformation());
+        }
+    }
+    
+    public void deleteDependent(GraphicObject obj) {
+        if (obj != null && this.getDependentObjects().contains(obj)) {
+            this.getDependentObjects().remove(obj);
         }
     }
     
@@ -127,15 +150,19 @@ public class GraphicObject {
         int intersections = 0;
         Point prevPoint = null;
         
+//        System.out.println("OBJP[" + point.getX() + "," + point.getY() + "," + point.getZ() + "]");
+//        this.exibeVertices();
+        
         for (Point objectPoint : this.getObjectPoints()) {
-            if (prevPoint != null) {
-                
+            
+            if (prevPoint != null) {                
                 if (prevPoint.getY() != objectPoint.getY()) {
                     Point intersectionPoint = this.getIntersectionPoint(prevPoint, objectPoint, point.getY());
-                    
+                    //System.out.println("INTERSECTP[" + intersectionPoint.getX() + "," + intersectionPoint.getY() + "," + intersectionPoint.getZ() + "]");
+            
                     if (intersectionPoint.getX() != point.getX()) {
-                        if (intersectionPoint.getX() > point.getX() 
-                                && intersectionPoint.getX() > this.yMin(prevPoint, objectPoint)
+                        if (intersectionPoint.getX() >= point.getX() 
+                                && intersectionPoint.getX() >= this.yMin(prevPoint, objectPoint)
                                 && intersectionPoint.getY() <= this.yMax(prevPoint, objectPoint)) {
                             intersections++;
                         }
@@ -145,6 +172,7 @@ public class GraphicObject {
             prevPoint = objectPoint;
         }
 
+        System.out.println("Qtde Intersecções: " + intersections);
         if (intersections % 2 != 0) {
             return true;
         } else {
@@ -194,6 +222,14 @@ public class GraphicObject {
 
     public void setObjectPoints(ArrayList<Point> objectPoints) {
         this.objectPoints = objectPoints;
+    }
+
+    public ArrayList<GraphicObject> getDependentObjects() {
+        return dependentObjects;
+    }
+
+    public void setDependentObjects(ArrayList<GraphicObject> dependentObjects) {
+        this.dependentObjects = dependentObjects;
     }
 
     public BoundBox getBondBox() {

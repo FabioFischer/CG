@@ -61,21 +61,6 @@ public class Vertex {
         }
     }
 
-    public boolean isPointOnVertexLine(Point p) {
-//        double distanceXPoint = p.getX() - this.getP1().getX();
-//        double distanceYPoint = p.getY() - this.getP1().getY();
-//
-//        double distanceXP2 = this.getP2().getX() - this.getP1().getX();
-//        double distanceYP2 = this.getP2().getY() - this.getP1().getY();
-//
-//        double distanceCross = distanceXPoint * distanceXP2 - distanceYPoint * distanceYP2;
-//
-//        if (distanceCross != 0) {
-//            return false;
-//        }
-        return false;
-    }
-
     public Point getP1() {
         return p1;
     }
