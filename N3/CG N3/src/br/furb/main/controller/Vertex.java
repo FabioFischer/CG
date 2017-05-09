@@ -5,6 +5,14 @@ import br.furb.main.utils.Point;
 import static java.lang.Math.abs;
 import javax.media.opengl.GL;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public class Vertex {
 
     private final int primitive = GL.GL_LINES;

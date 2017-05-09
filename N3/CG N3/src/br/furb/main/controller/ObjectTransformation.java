@@ -4,6 +4,14 @@ package br.furb.main.controller;
 import br.furb.main.utils.Point;
 import br.furb.main.utils.Transformation;
 
+/*
+**   FURB - Bacharelado em Ciências da Computação
+**   Computação Gráfica
+**   Unidade 03
+**
+**   Fábio Luiz Fischer & Matheus Navarro Nienow
+ */
+
 public class ObjectTransformation {
         
     private Transformation mainMatrix = new Transformation();
