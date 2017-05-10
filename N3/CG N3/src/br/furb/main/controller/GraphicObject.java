@@ -1,4 +1,3 @@
-
 package br.furb.main.controller;
 
 import br.furb.main.utils.Color;
@@ -15,24 +14,24 @@ import javax.media.opengl.GL;
  */
 
 public class GraphicObject {
-    
+
     private final int primitive = GL.GL_LINE_STRIP;
-    
+
     public static final Color STAND_BY_MODE_COLOR = new Color(0, 0, 0);
     public static final Color NEW_OBJ_MODE_COLOR = new Color(0, 0, 1);
     public static final Color SEL_OBJ_MODE_COLOR = new Color(0, 1, 0);
     public static final Color DEL_OBJ_MODE_COLOR = new Color(1, 0, 0);
-    
+
     private GL gl;
-    private Color currentColor, defaultColor; 
+    private Color currentColor, defaultColor;
     private double width;
-    
+
     private ArrayList<Point> objectPoints;
     private ArrayList<GraphicObject> dependentObjects;
-    
+
     private BoundBox bondBox;
     private ObjectTransformation objTransformation;
-    
+
     public GraphicObject(GL gl, Color color, float width) {
         this.setGl(gl);
         this.setCurrentColor(color);
@@ -40,17 +39,17 @@ public class GraphicObject {
         this.setWidth(width);
         this.setObjectPoints(new ArrayList<>());
         this.setDependentObjects(new ArrayList<>());
-        
+
         this.setBondBox(new BoundBox(this));
         this.setObjTransformation(new ObjectTransformation());
     }
-    
+
     public void drawObject() {
-        this.getGl().glColor3d(this.getCurrentColor().getRed(), 
-                this.getCurrentColor().getGreen(), 
+        this.getGl().glColor3d(this.getCurrentColor().getRed(),
+                this.getCurrentColor().getGreen(),
                 this.getCurrentColor().getBlue());
-        this.getGl().glLineWidth((float)this.getWidth());
-        
+        this.getGl().glLineWidth((float) this.getWidth());
+
         this.getGl().glPushMatrix();
             this.getGl().glMultMatrixd(this.getObjTransformation().getMainMatrix().getMatrix(), 0);
             this.getGl().glBegin(this.getPrimitive());
@@ -60,71 +59,95 @@ public class GraphicObject {
             this.getGl().glEnd();
         this.getGl().glPopMatrix();
         
-        
-        for (GraphicObject obj : this.getDependentObjects()) {
-            if (obj != null) {
-                obj.drawObject();
+        if (this.getDependentObjects() != null) {
+            for (GraphicObject obj : this.getDependentObjects()) {
+                if (obj != null) {
+                    obj.drawObject();
+                }
             }
         }
     }
-    
+
     public void drawPoint(Point p) {
-        this.getGl().glColor3d(this.getCurrentColor().getRed() + 0.2, 
-                this.getCurrentColor().getGreen() + 0.2, 
+        this.getGl().glColor3d(this.getCurrentColor().getRed() + 0.2,
+                this.getCurrentColor().getGreen() + 0.2,
                 this.getCurrentColor().getBlue() + 0.2);
-        this.getGl().glPointSize((float)(this.getWidth()*4));
-        
+        this.getGl().glPointSize((float) (this.getWidth() * 4));
+
         this.getGl().glBegin(GL.GL_POINTS);
             this.getGl().glVertex2d(p.getX(), p.getY());
         this.getGl().glEnd();
     }
-    
+
     public void addPoint(Point p) {
         if (p != null) {
             this.getObjectPoints().add(p);
             this.getBondBox().updateBondBox(this);
         }
     }
-    
+
     public void deletePoint(Point p) {
         if (this.getObjectPoints().contains(p)) {
             this.getObjectPoints().remove(p);
             this.getBondBox().updateBondBox(this);
         }
     }
-    
+
     public void addDependent(GraphicObject obj) {
         if (obj != null) {
             this.getDependentObjects().add(obj);
             obj.setObjTransformation(this.getObjTransformation());
         }
     }
-    
+
     public void deleteDependent(GraphicObject obj) {
         if (obj != null && this.getDependentObjects().contains(obj)) {
             this.getDependentObjects().remove(obj);
         }
     }
-    
+
+    public void updateDependentsTransformation() {
+        if (this.getDependentObjects() != null) {
+            for (GraphicObject dependent : this.getDependentObjects()) {
+                dependent.setObjTransformation(this.getObjTransformation());
+            }
+        }
+    }
+
+    public void translate(double dx, double dy, double dz) {
+        this.getObjTransformation().translate3D(dx, dy, dz);
+        this.updateDependentsTransformation();
+    }
+
+    public void scale(double scale) {
+        this.getObjTransformation().scaleStaticPoint(scale, this.getBondBox().getCenterPoint());
+        this.updateDependentsTransformation();
+    }
+
+    public void rotate(double angle) {
+        this.getObjTransformation().rotateStaticPoint(angle, this.getBondBox().getCenterPoint());
+        this.updateDependentsTransformation();
+    }
+
     private double getXDistanceBetweenPoints(Point p1, Point p2) {
-        return ((p1.getX() >= p2.getX()) ? p1.getX() : p2.getX()) 
+        return ((p1.getX() >= p2.getX()) ? p1.getX() : p2.getX())
                 - ((p1.getX() <= p2.getX()) ? p1.getX() : p2.getX());
     }
-    
+
     private double getYDistanceBetweenPoints(Point p1, Point p2) {
-        return ((p1.getY() >= p2.getY()) ? p1.getY() : p2.getY()) 
+        return ((p1.getY() >= p2.getY()) ? p1.getY() : p2.getY())
                 - ((p1.getY() <= p2.getY()) ? p1.getY() : p2.getY());
     }
-    
+
     private double getZDistanceBetweenPoints(Point p1, Point p2) {
-        return ((p1.getZ() >= p2.getZ()) ? p1.getZ() : p2.getZ()) 
+        return ((p1.getZ() >= p2.getZ()) ? p1.getZ() : p2.getZ())
                 - ((p1.getZ() <= p2.getZ()) ? p1.getZ() : p2.getZ());
     }
-    
+
     public Point findNearPoint(Point p, double distance) {
         if (!this.getObjectPoints().isEmpty()) {
             for (Point objectPoint : this.getObjectPoints()) {
-                if (this.getXDistanceBetweenPoints(objectPoint, p) <= distance 
+                if (this.getXDistanceBetweenPoints(objectPoint, p) <= distance
                         && this.getYDistanceBetweenPoints(objectPoint, p) <= distance
                         && this.getZDistanceBetweenPoints(objectPoint, p) <= distance) {
                     return objectPoint;
@@ -133,46 +156,41 @@ public class GraphicObject {
         }
         return null;
     }
-    
+
     private double yMin(Point p1, Point p2) {
         return (p1.getY() < p2.getY() ? p1.getY() : p2.getY());
     }
-    
+
     private double yMax(Point p1, Point p2) {
         return (p1.getY() > p2.getY() ? p1.getY() : p2.getY());
     }
-    
+
     private Point getIntersectionPoint(Point p1, Point p2, double y) {
-        return new Point(p1.getX() + (p2.getX() - p1.getX())*((y - p1.getY()) / (p2.getY() - p1.getY())), y, 0.0f, 0.0f);
+        return new Point(p1.getX() + (p2.getX() - p1.getX()) * ((y - p1.getY()) / (p2.getY() - p1.getY())), y, 0.0f, 0.0f);
     }
-    
+
     public boolean scanLine(Point point) {
         int intersections = 0;
         Point prevPoint = null;
-        
-//        System.out.println("OBJP[" + point.getX() + "," + point.getY() + "," + point.getZ() + "]");
-//        this.exibeVertices();
-        
+
         for (Point objectPoint : this.getObjectPoints()) {
-            
-            if (prevPoint != null) {                
+
+            if (prevPoint != null) {
                 if (prevPoint.getY() != objectPoint.getY()) {
                     Point intersectionPoint = this.getIntersectionPoint(prevPoint, objectPoint, point.getY());
-                    //System.out.println("INTERSECTP[" + intersectionPoint.getX() + "," + intersectionPoint.getY() + "," + intersectionPoint.getZ() + "]");
-            
+
                     if (intersectionPoint.getX() != point.getX()) {
-                        if (intersectionPoint.getX() >= point.getX() 
+                        if (intersectionPoint.getX() >= point.getX()
                                 && intersectionPoint.getX() >= this.yMin(prevPoint, objectPoint)
                                 && intersectionPoint.getY() <= this.yMax(prevPoint, objectPoint)) {
                             intersections++;
                         }
                     }
-                }                
+                }
             }
             prevPoint = objectPoint;
         }
 
-        System.out.println("Qtde Intersecções: " + intersections);
         if (intersections % 2 != 0) {
             return true;
         } else {
@@ -198,6 +216,12 @@ public class GraphicObject {
 
     public void setCurrentColor(Color currentColor) {
         this.currentColor = currentColor;
+
+        if (this.getDependentObjects() != null) {
+            for (GraphicObject obj : this.getDependentObjects()) {
+                obj.setCurrentColor(currentColor);
+            }
+        }
     }
 
     public Color getDefaultColor() {
@@ -206,6 +230,12 @@ public class GraphicObject {
 
     public void setDefaultColor(Color defaultColor) {
         this.defaultColor = defaultColor;
+        
+        if (this.getDependentObjects() != null) {
+            for (GraphicObject obj : this.getDependentObjects()) {
+                obj.setDefaultColor(defaultColor);
+            }
+        }
     }
 
     public double getWidth() {
@@ -214,6 +244,12 @@ public class GraphicObject {
 
     public void setWidth(double width) {
         this.width = width;
+        
+        if (this.getDependentObjects() != null) {
+            for (GraphicObject obj : this.getDependentObjects()) {
+                obj.setWidth(width);
+            }
+        }
     }
 
     public ArrayList<Point> getObjectPoints() {
@@ -246,12 +282,14 @@ public class GraphicObject {
 
     public void setObjTransformation(ObjectTransformation objTransformation) {
         this.objTransformation = objTransformation;
+        
+        if (this.getDependentObjects() != null) {
+            for (GraphicObject obj : this.getDependentObjects()) {
+                obj.setObjTransformation(objTransformation);
+            }
+        }
     }
-//        
-//    public void exibeMatriz() {
-//            this.getObjTransformation().getMainMatrix().exibeMatriz();
-//    }
-//
+    
     public void exibeVertices() {;
         for (Point p : this.getObjectPoints()) {
             System.out.println("P0[" + p.getX() + "," + p.getY() + "," + p.getZ() + "]");

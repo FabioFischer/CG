@@ -114,15 +114,10 @@ public class BoundBox {
     }
     
     public void updateCenterPoint() {
-        this.centerPoint = new Point((xMax+xMin/2), (yMax+yMin/2), (zMax+zMin/2), 1);
+        this.centerPoint = new Point(((xMax+xMin)/2), ((yMax+yMin)/2), ((zMax+zMin)/2), 1);
     }
     
     public boolean isInside(Point p) {
-//        System.out.println("pX: " + p.getX() + " --- pY: " + p.getY() 
-//                + "\nxMin: " + this.getxMin() + " --- xMax: " + this.getxMax() 
-//                + "\nyMin: " + this.getyMin() + " --- yMax: " + this.getyMax() 
-//                + "\nzMin: " + this.getyMin() + " --- zMax: " + this.getyMax());
-//        
         return (p.getX() >= this.getxMin() && p.getX() <= this.getxMax() &&
                 p.getY() >= this.getyMin() && p.getY() <= this.getyMax() &&
                 p.getZ() >= this.getzMin() && p.getZ() <= this.getzMax());

@@ -29,7 +29,24 @@ public class GraphicWorld {
     }
 
     public void deleteObject(GraphicObject obj) {
+        if (obj != null) {
+            for (GraphicObject object : objects) {
+                if (object == obj) {
+                    this.removeObjectDependents(object);
+                }
+            }
+        }
+    }
+    
+    public void removeObjectDependents(GraphicObject obj) {
         if (this.getObjects().contains(obj)) {
+            if (obj.getDependentObjects() != null) {
+                for (GraphicObject dependent : obj.getDependentObjects()) {
+                    if (this.getObjects().contains(dependent)) {
+                        this.getObjects().remove(dependent);
+                    }
+                }
+            }
             this.getObjects().remove(obj);
         }
     }
@@ -66,19 +83,19 @@ public class GraphicWorld {
 
     public void translateWorld(double x, double y, double z) {
         for (GraphicObject object : objects) {
-            object.getObjTransformation().translate3D(x, y, z);
+            object.translate(x, y, z);
         }
     }
 
-    public void scaleWorld(double x, double y) {
+    public void scaleWorld(double scale) {
         for (GraphicObject object : objects) {
-            object.getObjTransformation().scale2D(x, y);
+            object.scale(scale);
         }
     }
 
     public void rotateStaticPointWorld(double angle) {
         for (GraphicObject object : objects) {
-            object.getObjTransformation().rotateStaticPoint(angle, object.getBondBox().getCenterPoint());
+            object.rotate(angle);
         }
     }
 
@@ -95,14 +112,14 @@ public class GraphicWorld {
         return null;
     }
 
-    public Vertex findVertexByPosition(Point p, double distance) {
+    public Edge findVertexByPosition(Point p, double distance) {
         for (GraphicObject object : this.getObjects()) {
             Point prevPoint = null;
 
             for (Point objectPoint : object.getObjectPoints()) {
                 if (prevPoint != null) {
-                    if (Vertex.isPointOnVertexLine(p, prevPoint, objectPoint)) {
-                        return new Vertex(object.getGl(), object.getCurrentColor(), object.getWidth(), prevPoint, objectPoint);
+                    if (Edge.isPointOnVertexLine(p, prevPoint, objectPoint)) {
+                        return new Edge(object.getGl(), object.getCurrentColor(), object.getWidth(), prevPoint, objectPoint);
                     }
                 } else {
                     prevPoint = objectPoint;

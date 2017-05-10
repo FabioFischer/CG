@@ -2,8 +2,8 @@ package br.furb.main.controller;
 
 import br.furb.main.utils.Color;
 import br.furb.main.utils.Point;
-import static java.lang.Math.abs;
 import javax.media.opengl.GL;
+import static java.lang.Math.abs;
 
 /*
 **   FURB - Bacharelado em Ciências da Computação
@@ -13,7 +13,7 @@ import javax.media.opengl.GL;
 **   Fábio Luiz Fischer & Matheus Navarro Nienow
  */
 
-public class Vertex {
+public class Edge {
 
     private final int primitive = GL.GL_LINES;
     private GL gl;
@@ -23,7 +23,7 @@ public class Vertex {
 
     private double lineWidth;
 
-    public Vertex(GL gl, Color color, double lineWidth, Point p1, Point p2) {
+    public Edge(GL gl, Color color, double lineWidth, Point p1, Point p2) {
         this.setGl(gl);
         this.setColor(color);
         this.setLineWidth(lineWidth);
@@ -31,7 +31,7 @@ public class Vertex {
         this.setP2(p2);
     }
 
-    public void drawVertex() {
+    public void drawEdge() {
         this.getGl().glColor3d(this.getColor().getRed(), this.getColor().getGreen(), this.getColor().getBlue());
         this.getGl().glLineWidth((float) this.getLineWidth());
 

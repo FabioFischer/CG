@@ -52,7 +52,7 @@ public class ObjectTransformation {
         this.getScaleMatrix().scale(scale, scale, 1);
         this.setGlobalMatrix(this.getScaleMatrix().transformMatrix(this.getGlobalMatrix()));
         
-        p.invert(p);
+        p = Point.invert(p);
         this.getInvertedTranslationMatrix().translate(p.getX(), p.getY(), p.getZ());
         this.setGlobalMatrix(this.getInvertedTranslationMatrix().transformMatrix(this.getGlobalMatrix()));
     
@@ -68,12 +68,11 @@ public class ObjectTransformation {
         this.getScaleMatrix().rotateZ(Transformation.DEG_TO_RAD * angle);
         this.setGlobalMatrix(this.getScaleMatrix().transformMatrix(this.getGlobalMatrix()));
         
-        Point.invert(p);
+        p = Point.invert(p);
         this.getInvertedTranslationMatrix().translate(p.getX(), p.getY(), p.getZ());
         this.setGlobalMatrix(this.getInvertedTranslationMatrix().transformMatrix(this.getGlobalMatrix()));
     
         this.setMainMatrix(this.getMainMatrix().transformMatrix(this.getGlobalMatrix())); 
-        this.getMainMatrix().exibeMatriz();
     }
     
     public void setIdentity() {
