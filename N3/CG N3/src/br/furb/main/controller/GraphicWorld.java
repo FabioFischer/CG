@@ -112,13 +112,13 @@ public class GraphicWorld {
         return null;
     }
 
-    public Edge findVertexByPosition(Point p, double distance) {
+    public Edge findEdgeByPosition(Point p, double distance) {
         for (GraphicObject object : this.getObjects()) {
             Point prevPoint = null;
 
             for (Point objectPoint : object.getObjectPoints()) {
                 if (prevPoint != null) {
-                    if (Edge.isPointOnVertexLine(p, prevPoint, objectPoint)) {
+                    if (Edge.isPointOnEdgeLine(p, prevPoint, objectPoint)) {
                         return new Edge(object.getGl(), object.getCurrentColor(), object.getWidth(), prevPoint, objectPoint);
                     }
                 } else {

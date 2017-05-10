@@ -120,12 +120,12 @@ public class GraphicObject {
     }
 
     public void scale(double scale) {
-        this.getObjTransformation().scaleStaticPoint(scale, this.getBondBox().getCenterPoint());
+        this.getObjTransformation().scaleStaticPoint(scale, Point.invert(this.getBondBox().getCenterPoint()));
         this.updateDependentsTransformation();
     }
 
     public void rotate(double angle) {
-        this.getObjTransformation().rotateStaticPoint(angle, this.getBondBox().getCenterPoint());
+        this.getObjTransformation().rotateStaticPoint(angle, Point.invert(this.getBondBox().getCenterPoint()));
         this.updateDependentsTransformation();
     }
 

@@ -41,7 +41,7 @@ public class Edge {
         this.getGl().glEnd();
     }
 
-    public static boolean isPointOnVertexLine(Point currentP, Point p1, Point p2) {
+    public static boolean isPointOnEdgeLine(Point currentP, Point p1, Point p2) {
         double dxOtherPoint = p2.getX() - p1.getX();
         double dyOtherPoint = p2.getY() - p1.getY();
         double distanceCross = (currentP.getX() - p1.getX()) * dxOtherPoint - (currentP.getY() - p1.getY()) * dyOtherPoint;
