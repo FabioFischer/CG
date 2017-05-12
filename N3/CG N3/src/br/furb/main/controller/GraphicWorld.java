@@ -30,7 +30,7 @@ public class GraphicWorld {
 
     public void deleteObject(GraphicObject obj) {
         if (obj != null) {
-            for (GraphicObject object : objects) {
+            for (GraphicObject object : this.getObjects()) {
                 if (object == obj) {
                     this.removeObjectDependents(object);
                 }

@@ -187,6 +187,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case KeyEvent.VK_EQUALS:
                 switch (this.getAppMode()) {
                     case UPD_OBJECT_MODE:
+                        this.getSelectedObj().exibeVertices();
                         this.getSelectedObj().scale(1.1);
                         break;
                 }
@@ -194,6 +195,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
             case KeyEvent.VK_MINUS:
                 switch (this.getAppMode()) {
                     case UPD_OBJECT_MODE:
+                        this.getSelectedObj().exibeVertices();
                         this.getSelectedObj().scale(0.9);
                         break;
                 }

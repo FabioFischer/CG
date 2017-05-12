@@ -124,6 +124,7 @@ public class GraphicObject {
     
     public void scaleDependents(double scale) {
         for (GraphicObject obj : this.getDependentObjects()) {
+            obj.exibeVertices();
             obj.getObjTransformation().scaleStaticPoint(scale, Point.invert(obj.getBondBox().getCenterPoint()));
         }
     }
