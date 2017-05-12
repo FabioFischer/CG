@@ -379,6 +379,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 break;            
             case NEW_DEPENDENT_MODE:
                 if (this.getSelectedObj() != null) {
+                    this.getWorld().addObject(this.getNewObj());
                     this.getSelectedObj().addDependent(this.getNewObj());
                 }
                 break;                

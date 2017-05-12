@@ -107,6 +107,10 @@ public class GraphicWorld {
                         return object;
                     }
                 }
+                
+                for (GraphicObject dependent : object.getDependentObjects()) {
+
+                }
             }
         }
         return null;
