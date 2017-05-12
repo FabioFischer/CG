@@ -106,27 +106,37 @@ public class GraphicObject {
         }
     }
 
-    public void updateDependentsTransformation() {
-        if (this.getDependentObjects() != null) {
-            for (GraphicObject dependent : this.getDependentObjects()) {
-                dependent.setObjTransformation(this.getObjTransformation());
-            }
-        }
-    }
-
     public void translate(double dx, double dy, double dz) {
         this.getObjTransformation().translate3D(dx, dy, dz);
-        this.updateDependentsTransformation();
+        this.translateDependents(dx, dy, dz);
+    }
+    
+    public void translateDependents(double dx, double dy, double dz) {
+        for (GraphicObject obj : this.getDependentObjects()) {
+            obj.getObjTransformation().translate3D(dx, dy, dz);
+        }
     }
 
     public void scale(double scale) {
         this.getObjTransformation().scaleStaticPoint(scale, Point.invert(this.getBondBox().getCenterPoint()));
-        this.updateDependentsTransformation();
+        this.scaleDependents(scale);
+    }
+    
+    public void scaleDependents(double scale) {
+        for (GraphicObject obj : this.getDependentObjects()) {
+            obj.getObjTransformation().scaleStaticPoint(scale, Point.invert(obj.getBondBox().getCenterPoint()));
+        }
     }
 
     public void rotate(double angle) {
         this.getObjTransformation().rotateStaticPoint(angle, Point.invert(this.getBondBox().getCenterPoint()));
-        this.updateDependentsTransformation();
+        this.rotateDependents(angle);
+    }
+    
+    public void rotateDependents(double angle) {
+        for (GraphicObject obj : this.getDependentObjects()) {
+            obj.getObjTransformation().rotateStaticPoint(angle, Point.invert(obj.getBondBox().getCenterPoint()));
+        }
     }
 
     private double getXDistanceBetweenPoints(Point p1, Point p2) {
