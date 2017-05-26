@@ -96,7 +96,6 @@ public class GraphicObject {
     public void addDependent(GraphicObject obj) {
         if (obj != null) {
             this.getDependentObjects().add(obj);
-            obj.setObjTransformation(this.getObjTransformation());
         }
     }
 
@@ -108,35 +107,38 @@ public class GraphicObject {
 
     public void translate(double dx, double dy, double dz) {
         this.getObjTransformation().translate3D(dx, dy, dz);
-        this.translateDependents(dx, dy, dz);
+        this.getObjTransformation().getMainMatrix().exibeMatriz();
+        this.translateDependents(dx, dy, dz, this.getDependentObjects());
     }
     
-    public void translateDependents(double dx, double dy, double dz) {
-        for (GraphicObject obj : this.getDependentObjects()) {
+    public void translateDependents(double dx, double dy, double dz, ArrayList<GraphicObject> dependents) {
+        for (GraphicObject obj : dependents) {
             obj.getObjTransformation().translate3D(dx, dy, dz);
+            this.translateDependents(dx, dy, dz, obj.getDependentObjects());
         }
     }
 
     public void scale(double scale) {
         this.getObjTransformation().scaleStaticPoint(scale, Point.invert(this.getBondBox().getCenterPoint()));
-        this.scaleDependents(scale);
+        this.scaleDependents(scale, this.getDependentObjects());
     }
     
-    public void scaleDependents(double scale) {
-        for (GraphicObject obj : this.getDependentObjects()) {
-            obj.exibeVertices();
+    public void scaleDependents(double scale, ArrayList<GraphicObject> dependents) {
+        for (GraphicObject obj : dependents) {
             obj.getObjTransformation().scaleStaticPoint(scale, Point.invert(obj.getBondBox().getCenterPoint()));
+            this.scaleDependents(scale, obj.getDependentObjects());
         }
     }
 
     public void rotate(double angle) {
         this.getObjTransformation().rotateStaticPoint(angle, Point.invert(this.getBondBox().getCenterPoint()));
-        this.rotateDependents(angle);
+        this.rotateDependents(angle, this.getDependentObjects());
     }
     
-    public void rotateDependents(double angle) {
-        for (GraphicObject obj : this.getDependentObjects()) {
+    public void rotateDependents(double angle, ArrayList<GraphicObject> dependents) {
+        for (GraphicObject obj : dependents) {
             obj.getObjTransformation().rotateStaticPoint(angle, Point.invert(obj.getBondBox().getCenterPoint()));
+            this.rotateDependents(angle, obj.getDependentObjects());
         }
     }
 
@@ -293,12 +295,6 @@ public class GraphicObject {
 
     public void setObjTransformation(ObjectTransformation objTransformation) {
         this.objTransformation = objTransformation;
-        
-        if (this.getDependentObjects() != null) {
-            for (GraphicObject obj : this.getDependentObjects()) {
-                obj.setObjTransformation(objTransformation);
-            }
-        }
     }
     
     public void exibeVertices() {;
