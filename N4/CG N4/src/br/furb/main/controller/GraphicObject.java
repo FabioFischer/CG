@@ -13,7 +13,7 @@ import javax.media.opengl.GL;
 **   Fábio Luiz Fischer & Matheus Navarro Nienow
  */
 
-public class GraphicObject {
+public abstract class GraphicObject {
 
     private final int primitive = GL.GL_LINE_STRIP;
 
