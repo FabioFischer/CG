@@ -22,7 +22,7 @@ public class Frame extends JFrame implements ActionListener{
     private Renderer renderer  = new Renderer();
 
     public Frame() {
-        super("CG-N3");
+        super("CG-N4");
         setBounds(80, 80, 600 + 16, 600 + 39);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 
@@ -38,9 +38,9 @@ public class Frame extends JFrame implements ActionListener{
         this.add(canvas, BorderLayout.CENTER);
         canvas.addGLEventListener(renderer);
         canvas.addKeyListener(renderer);
-        canvas.addMouseListener(renderer);
-        canvas.addMouseMotionListener(renderer);
-        canvas.addMouseWheelListener(renderer);
+//        canvas.addMouseListener(renderer);
+//        canvas.addMouseMotionListener(renderer);
+//        canvas.addMouseWheelListener(renderer);
         canvas.requestFocus();}
     
     public static void main(String[] args) {

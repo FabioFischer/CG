@@ -7,6 +7,7 @@ package br.furb.main.objects;
 
 import br.furb.main.controller.GraphicObject;
 import br.furb.main.utils.Color;
+import br.furb.main.utils.Point;
 import javax.media.opengl.GL;
 
 /**
@@ -15,8 +16,28 @@ import javax.media.opengl.GL;
  */
 public class PoolBall extends GraphicObject{
     
-    public PoolBall(GL gl, Color color, float width) {
-        super(gl, color, width);
-    }
+    private Point centerPoint;
+    private double size;
     
+    public PoolBall(GL gl, Color color, float width, Point centerPoint, double size) {
+        super(gl, color, width);
+        this.setCenterPoint(centerPoint);
+        this.setSize(size);
+    }
+
+    public Point getCenterPoint() {
+        return centerPoint;
+    }
+
+    public void setCenterPoint(Point centerPoint) {
+        this.centerPoint = centerPoint;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
 }

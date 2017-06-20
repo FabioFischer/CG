@@ -11,17 +11,24 @@ import java.util.Random;
  */
 
 public class Color {
-    private double red, green, blue;
+    private double red, green, blue, alpha;
     
-    public Color (double red, double green, double blue) {
+    public static final Color cBlack = new Color(0, 0, 0, 1);
+    public static final Color cWhite = new Color(1, 1, 1, 1);
+    public static final Color cRed = new Color(1, 0, 0, 1);
+    public static final Color cGreen = new Color(0, 1, 0, 1);
+    public static final Color cBlue = new Color(0, 0, 1, 1);
+    
+    public Color (double red, double green, double blue, double alpha) {
         this.setRed(red);
         this.setGreen(green);
         this.setBlue(blue);
+        this.setAlpha(alpha);
     }
 
     public static Color getRandomColor () {
         Random rand = new Random();        
-        return new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+        return new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1);
     }
     
     public double getRed() {
@@ -47,4 +54,12 @@ public class Color {
     public void setBlue(double blue) {
         this.blue = blue;
     }    
+
+    public double getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(double alpha) {
+        this.alpha = alpha;
+    }
 }

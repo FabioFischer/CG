@@ -59,28 +59,6 @@ public class GraphicWorld {
         }
     }
 
-    public void updateObjectColor(Color c, GraphicObject obj) {
-        if (this.getObjects().contains(obj)) {
-            this.getObjects().get(this.getObjects().indexOf(obj)).setCurrentColor(c);
-        }
-    }
-
-    public void updateObjectsColor(Color c) {
-        if (!this.getObjects().isEmpty()) {
-            for (GraphicObject object : this.getObjects()) {
-                object.setCurrentColor(c);
-            }
-        }
-    }
-
-    public void updateObjectsColorToDefault() {
-        if (!this.getObjects().isEmpty()) {
-            for (GraphicObject object : this.getObjects()) {
-                object.setCurrentColor(object.getDefaultColor());
-            }
-        }
-    }
-
     public void translateWorld(double x, double y, double z) {
         for (GraphicObject object : objects) {
             object.translate(x, y, z);
@@ -110,23 +88,6 @@ public class GraphicWorld {
                 
                 for (GraphicObject dependent : object.getDependentObjects()) {
 
-                }
-            }
-        }
-        return null;
-    }
-
-    public Edge findEdgeByPosition(Point p, double distance) {
-        for (GraphicObject object : this.getObjects()) {
-            Point prevPoint = null;
-
-            for (Point objectPoint : object.getObjectPoints()) {
-                if (prevPoint != null) {
-                    if (Edge.isPointOnEdgeLine(p, prevPoint, objectPoint)) {
-                        return new Edge(object.getGl(), object.getCurrentColor(), object.getWidth(), prevPoint, objectPoint);
-                    }
-                } else {
-                    prevPoint = objectPoint;
                 }
             }
         }

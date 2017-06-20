@@ -17,13 +17,8 @@ public abstract class GraphicObject {
 
     private final int primitive = GL.GL_LINE_STRIP;
 
-    public static final Color STAND_BY_MODE_COLOR = new Color(0, 0, 0);
-    public static final Color NEW_OBJ_MODE_COLOR = new Color(0, 0, 1);
-    public static final Color SEL_OBJ_MODE_COLOR = new Color(0, 1, 0);
-    public static final Color DEL_OBJ_MODE_COLOR = new Color(1, 0, 0);
-
     private GL gl;
-    private Color currentColor, defaultColor;
+    private Color color;
     private double width;
 
     private ArrayList<Point> objectPoints;
@@ -34,8 +29,7 @@ public abstract class GraphicObject {
 
     public GraphicObject(GL gl, Color color, float width) {
         this.setGl(gl);
-        this.setCurrentColor(color);
-        this.setDefaultColor(this.STAND_BY_MODE_COLOR);
+        this.setColor(color);
         this.setWidth(width);
         this.setObjectPoints(new ArrayList<>());
         this.setDependentObjects(new ArrayList<>());
@@ -45,38 +39,9 @@ public abstract class GraphicObject {
     }
 
     public void drawObject() {
-        this.getGl().glColor3d(this.getCurrentColor().getRed(),
-                this.getCurrentColor().getGreen(),
-                this.getCurrentColor().getBlue());
-        this.getGl().glLineWidth((float) this.getWidth());
-
-        this.getGl().glPushMatrix();
-            this.getGl().glMultMatrixd(this.getObjTransformation().getMainMatrix().getMatrix(), 0);
-            this.getGl().glBegin(this.getPrimitive());
-                for (Point objectPoint : this.getObjectPoints()) {
-                    this.getGl().glVertex2d(objectPoint.getX(), objectPoint.getY());
-                }
-            this.getGl().glEnd();
-        this.getGl().glPopMatrix();
-        
-        if (this.getDependentObjects() != null) {
-            for (GraphicObject obj : this.getDependentObjects()) {
-                if (obj != null) {
-                    obj.drawObject();
-                }
-            }
-        }
     }
 
     public void drawPoint(Point p) {
-        this.getGl().glColor3d(this.getCurrentColor().getRed() + 0.2,
-                this.getCurrentColor().getGreen() + 0.2,
-                this.getCurrentColor().getBlue() + 0.2);
-        this.getGl().glPointSize((float) (this.getWidth() * 4));
-
-        this.getGl().glBegin(GL.GL_POINTS);
-            this.getGl().glVertex2d(p.getX(), p.getY());
-        this.getGl().glEnd();
     }
 
     public void addPoint(Point p) {
@@ -223,32 +188,12 @@ public abstract class GraphicObject {
         this.gl = gl;
     }
 
-    public Color getCurrentColor() {
-        return currentColor;
+    public Color getColor() {
+        return color;
     }
 
-    public void setCurrentColor(Color currentColor) {
-        this.currentColor = currentColor;
-
-        if (this.getDependentObjects() != null) {
-            for (GraphicObject obj : this.getDependentObjects()) {
-                obj.setCurrentColor(currentColor);
-            }
-        }
-    }
-
-    public Color getDefaultColor() {
-        return defaultColor;
-    }
-
-    public void setDefaultColor(Color defaultColor) {
-        this.defaultColor = defaultColor;
-        
-        if (this.getDependentObjects() != null) {
-            for (GraphicObject obj : this.getDependentObjects()) {
-                obj.setDefaultColor(defaultColor);
-            }
-        }
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public double getWidth() {
@@ -256,13 +201,7 @@ public abstract class GraphicObject {
     }
 
     public void setWidth(double width) {
-        this.width = width;
-        
-        if (this.getDependentObjects() != null) {
-            for (GraphicObject obj : this.getDependentObjects()) {
-                obj.setWidth(width);
-            }
-        }
+        this.width = width;        
     }
 
     public ArrayList<Point> getObjectPoints() {
