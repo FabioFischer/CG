@@ -13,7 +13,7 @@ import javax.media.opengl.glu.GLU;
 /*
 **   FURB - Bacharelado em Ciências da Computação
 **   Computação Gráfica
-**   Unidade 03
+**   Unidade 04
 **
 **   Fábio Luiz Fischer & Matheus Navarro Nienow
  */
@@ -26,6 +26,11 @@ public class Renderer implements GLEventListener, KeyListener {
     
     private Axis axis;
     
+    private float xEye, yEye, zEye;
+    private float xCenter, yCenter, zCenter;
+    
+    private boolean light;
+    
     public void init(GLAutoDrawable drawable) {
         this.setGlDrawable(drawable);
         this.setGl(drawable.getGL());
@@ -37,11 +42,16 @@ public class Renderer implements GLEventListener, KeyListener {
         this.getGlDrawable().setGL(new DebugGL(gl));
 
         this.getGl().glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-        float posLight[] = {5.0f, 5.0f, 10.0f, 0.0f};
         
-        this.getGl().glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
-        this.getGl().glEnable(GL.GL_LIGHT0);
+        this.xEye = 20.0f; 		
+        this.yEye = 20.0f; 		
+        this.zEye = 20.0f;
+        
+        this.xCenter = 0.0f;		
+        this.yCenter = 0.0f;		
+        this.zCenter = 0.0f;
+		
+        this.setLight();
 
         this.getGl().glEnable(GL.GL_CULL_FACE);
         this.getGl().glEnable(GL.GL_DEPTH_TEST);
@@ -60,7 +70,8 @@ public class Renderer implements GLEventListener, KeyListener {
 
         this.getGl().glMatrixMode(GL.GL_MODELVIEW);
         this.getGl().glLoadIdentity();
-        this.getGlu().gluLookAt(5, 5, 5, 0, 0, 0, 0, 1, 0);
+        
+        this.getGlu().gluLookAt(xEye, yEye, zEye, xCenter, yCenter, zCenter, 0, 1, 0);
 
         this.axis.drawAxis();
         
@@ -69,6 +80,33 @@ public class Renderer implements GLEventListener, KeyListener {
 
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                System.exit(1);
+            break;
+            case KeyEvent.VK_1:
+                this.xEye = 20.0f;
+                this.yEye = 20.0f;
+                this.zEye = 20.0f;
+            break;
+            case KeyEvent.VK_2:
+                this.xEye = 0.0f;
+                this.yEye = 0.0f;
+                this.zEye = 20.0f;
+                break;
+            case KeyEvent.VK_3:
+                this.xEye = 0.0f;
+                this.yEye = 0.0f;
+                this.zEye = -20.0f;
+                break;
+            case KeyEvent.VK_4:
+                this.xEye = 1.0f;
+                this.yEye = 0.0f;
+                this.zEye = 0.0f;
+                break;
+            case KeyEvent.VK_L:
+                this.light = !light;
+                this.setLight();
+                break;
             case KeyEvent.VK_R:
                 // Reiniciar jogo
                 break;
@@ -89,7 +127,25 @@ public class Renderer implements GLEventListener, KeyListener {
 
     public void Debug() {
     }
+    
+    public void setLight() {
+        if (this.isLight()) {
+            float posLight[] = { 5.0f, 5.0f, 10.0f, 0.0f };
+            gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
+            gl.glEnable(GL.GL_LIGHT0);
+        } else {
+            gl.glDisable(GL.GL_LIGHT0);
+        }
+    }
 
+    public boolean isLight() {
+        return light;
+    }
+
+    public void setLight(boolean light) {
+        this.light = light;
+    }
+    
     public GL getGl() {
         return gl;
     }

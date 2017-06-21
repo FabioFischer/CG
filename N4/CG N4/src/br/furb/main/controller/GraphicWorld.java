@@ -14,13 +14,13 @@ import java.util.ArrayList;
 
 public class GraphicWorld {
     
-    private ArrayList<GraphicObject> objects;
+    private ArrayList<GraphicPolygon> objects;
 
     public GraphicWorld() {
         this.setObjects(new ArrayList<>());
     }
 
-    public void addObject(GraphicObject obj) {
+    public void addObject(GraphicPolygon obj) {
         if (obj != null
                 && !this.getObjects().contains(obj)
                 && !obj.getObjectPoints().isEmpty()) {
@@ -28,9 +28,9 @@ public class GraphicWorld {
         }
     }
 
-    public void deleteObject(GraphicObject obj) {
+    public void deleteObject(GraphicPolygon obj) {
         if (obj != null) {
-            for (GraphicObject object : this.getObjects()) {
+            for (GraphicPolygon object : this.getObjects()) {
                 if (object == obj) {
                     this.removeObjectDependents(object);
                 }
@@ -38,10 +38,10 @@ public class GraphicWorld {
         }
     }
     
-    public void removeObjectDependents(GraphicObject obj) {
+    public void removeObjectDependents(GraphicPolygon obj) {
         if (this.getObjects().contains(obj)) {
             if (obj.getDependentObjects() != null) {
-                for (GraphicObject dependent : obj.getDependentObjects()) {
+                for (GraphicPolygon dependent : obj.getDependentObjects()) {
                     if (this.getObjects().contains(dependent)) {
                         this.getObjects().remove(dependent);
                     }
@@ -53,40 +53,40 @@ public class GraphicWorld {
 
     public void drawObjects() {
         if (!this.getObjects().isEmpty()) {
-            for (GraphicObject object : this.getObjects()) {
+            for (GraphicPolygon object : this.getObjects()) {
                 object.drawObject();
             }
         }
     }
 
     public void translateWorld(double x, double y, double z) {
-        for (GraphicObject object : objects) {
+        for (GraphicPolygon object : objects) {
             object.translate(x, y, z);
         }
     }
 
     public void scaleWorld(double scale) {
-        for (GraphicObject object : objects) {
+        for (GraphicPolygon object : objects) {
             object.scale(scale);
         }
     }
 
     public void rotateStaticPointWorld(double angle) {
-        for (GraphicObject object : objects) {
+        for (GraphicPolygon object : objects) {
             object.rotate(angle);
         }
     }
 
-    public GraphicObject getObjectByPosition(Point pos) {
+    public GraphicPolygon getObjectByPosition(Point pos) {
         if (!this.getObjects().isEmpty()) {
-            for (GraphicObject object : this.getObjects()) {
+            for (GraphicPolygon object : this.getObjects()) {
                 if (object.getBondBox().isInside(pos)) {
                     if (object.scanLine(pos)) {
                         return object;
                     }
                 }
                 
-                for (GraphicObject dependent : object.getDependentObjects()) {
+                for (GraphicPolygon dependent : object.getDependentObjects()) {
 
                 }
             }
@@ -94,11 +94,11 @@ public class GraphicWorld {
         return null;
     }
 
-    public ArrayList<GraphicObject> getObjects() {
+    public ArrayList<GraphicPolygon> getObjects() {
         return objects;
     }
 
-    public void setObjects(ArrayList<GraphicObject> objects) {
+    public void setObjects(ArrayList<GraphicPolygon> objects) {
         this.objects = objects;
     }
 }

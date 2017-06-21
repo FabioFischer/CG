@@ -13,7 +13,7 @@ import javax.media.opengl.GL;
 **   Fábio Luiz Fischer & Matheus Navarro Nienow
  */
 
-public abstract class GraphicObject {
+public abstract class GraphicPolygon {
 
     private final int primitive = GL.GL_LINE_STRIP;
 
@@ -22,12 +22,12 @@ public abstract class GraphicObject {
     private double width;
 
     private ArrayList<Point> objectPoints;
-    private ArrayList<GraphicObject> dependentObjects;
+    private ArrayList<GraphicPolygon> dependentObjects;
 
     private BoundBox bondBox;
     private ObjectTransformation objTransformation;
 
-    public GraphicObject(GL gl, Color color, float width) {
+    public GraphicPolygon(GL gl, Color color, float width) {
         this.setGl(gl);
         this.setColor(color);
         this.setWidth(width);
@@ -58,13 +58,13 @@ public abstract class GraphicObject {
         }
     }
 
-    public void addDependent(GraphicObject obj) {
+    public void addDependent(GraphicPolygon obj) {
         if (obj != null) {
             this.getDependentObjects().add(obj);
         }
     }
 
-    public void deleteDependent(GraphicObject obj) {
+    public void deleteDependent(GraphicPolygon obj) {
         if (obj != null && this.getDependentObjects().contains(obj)) {
             this.getDependentObjects().remove(obj);
         }
@@ -76,8 +76,8 @@ public abstract class GraphicObject {
         this.translateDependents(dx, dy, dz, this.getDependentObjects());
     }
     
-    public void translateDependents(double dx, double dy, double dz, ArrayList<GraphicObject> dependents) {
-        for (GraphicObject obj : dependents) {
+    public void translateDependents(double dx, double dy, double dz, ArrayList<GraphicPolygon> dependents) {
+        for (GraphicPolygon obj : dependents) {
             obj.getObjTransformation().translate3D(dx, dy, dz);
             this.translateDependents(dx, dy, dz, obj.getDependentObjects());
         }
@@ -88,8 +88,8 @@ public abstract class GraphicObject {
         this.scaleDependents(scale, this.getDependentObjects());
     }
     
-    public void scaleDependents(double scale, ArrayList<GraphicObject> dependents) {
-        for (GraphicObject obj : dependents) {
+    public void scaleDependents(double scale, ArrayList<GraphicPolygon> dependents) {
+        for (GraphicPolygon obj : dependents) {
             obj.getObjTransformation().scaleStaticPoint(scale, Point.invert(obj.getBondBox().getCenterPoint()));
             this.scaleDependents(scale, obj.getDependentObjects());
         }
@@ -100,8 +100,8 @@ public abstract class GraphicObject {
         this.rotateDependents(angle, this.getDependentObjects());
     }
     
-    public void rotateDependents(double angle, ArrayList<GraphicObject> dependents) {
-        for (GraphicObject obj : dependents) {
+    public void rotateDependents(double angle, ArrayList<GraphicPolygon> dependents) {
+        for (GraphicPolygon obj : dependents) {
             obj.getObjTransformation().rotateStaticPoint(angle, Point.invert(obj.getBondBox().getCenterPoint()));
             this.rotateDependents(angle, obj.getDependentObjects());
         }
@@ -212,11 +212,11 @@ public abstract class GraphicObject {
         this.objectPoints = objectPoints;
     }
 
-    public ArrayList<GraphicObject> getDependentObjects() {
+    public ArrayList<GraphicPolygon> getDependentObjects() {
         return dependentObjects;
     }
 
-    public void setDependentObjects(ArrayList<GraphicObject> dependentObjects) {
+    public void setDependentObjects(ArrayList<GraphicPolygon> dependentObjects) {
         this.dependentObjects = dependentObjects;
     }
 

@@ -5,7 +5,7 @@
  */
 package br.furb.main.objects;
 
-import br.furb.main.controller.GraphicObject;
+import br.furb.main.controller.GraphicPolygon;
 import br.furb.main.utils.Color;
 import br.furb.main.utils.Point;
 import javax.media.opengl.GL;
@@ -14,7 +14,7 @@ import javax.media.opengl.GL;
  *
  * @author fabio.fischer
  */
-public class PoolBall extends GraphicObject{
+public class PoolBall extends GraphicPolygon{
     
     private Point centerPoint;
     private double size;
