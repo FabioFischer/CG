@@ -72,7 +72,6 @@ public class Renderer implements GLEventListener, KeyListener {
         this.getGl().glLoadIdentity();
         
         this.getGlu().gluLookAt(xEye, yEye, zEye, xCenter, yCenter, zCenter, 0, 1, 0);
-
         this.axis.drawAxis();
         
         this.getGl().glFlush();

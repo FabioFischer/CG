@@ -14,8 +14,8 @@ public class BoundBox {
     private double xMax, xMin, yMax, yMin, zMax, zMin;
     private Point centerPoint = null;
     
-    public BoundBox(GraphicPolygon obj) {
-        this.updateBondBox(obj);
+    public BoundBox(GraphicFace face) {
+        this.updateBondBox(face);
     }
     
     public BoundBox(double xMax, double xMin, double yMax, double yMin, double zMax, double zMin) {
@@ -23,10 +23,10 @@ public class BoundBox {
         this.updateCenterPoint();
     }
 
-    public void updateBondBox(GraphicPolygon obj) {
+    public void updateBondBox(GraphicFace face) {
         boolean firstTime = true;
         
-        for (Point point : obj.getObjectPoints()) {
+        for (Point point : face.getObjectPoints()) {
             if (!firstTime) {
                 this.updateBondBox(
                         this.getHigherValue(point.getX(), this.getxMax()), 
