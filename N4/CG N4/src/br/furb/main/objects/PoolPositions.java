@@ -1,6 +1,7 @@
 package br.furb.main.objects;
 
 import br.furb.main.controller.GraphicFace;
+import br.furb.main.utils.Color;
 import br.furb.main.utils.Point;
 import com.sun.opengl.util.GLUT;
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ public class PoolPositions {
     
     private GL gl;
     private GLUT glut;
+    
+    private final double DEFAULT_POOL_BALL_SIZE = 0.27;
+    private final double WHITE_POOL_BALL_SIZE = 0.29;
     
     public GraphicFace POOL_TABLE_LEG_1_FACE_1;
     public GraphicFace POOL_TABLE_LEG_1_FACE_2;
@@ -322,6 +326,46 @@ public class PoolPositions {
         faces.add(POOL_TABLE_LEG_4_FACE_6);
         
         return faces;
+    }
+    
+    public ArrayList<PoolBall> createPoolBalls() {
+        ArrayList<PoolBall> poolBalls = new ArrayList<>();
+        
+        PoolBall pBall0 = new PoolBall(this.getGl(), this.getGlut(), Color.cWhite, new Point(4, (5 + WHITE_POOL_BALL_SIZE), 3.5, 1), WHITE_POOL_BALL_SIZE);
+        PoolBall pBall1 = new PoolBall(this.getGl(), this.getGlut(), Color.cYellow, new Point(4, (5 + DEFAULT_POOL_BALL_SIZE), 10, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall2 = new PoolBall(this.getGl(), this.getGlut(), Color.cBlue, new Point(4.3, (5 + DEFAULT_POOL_BALL_SIZE), 10.5, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall3 = new PoolBall(this.getGl(), this.getGlut(), Color.cRed, new Point(3.7, (5 + DEFAULT_POOL_BALL_SIZE), 10.5, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall4 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkBlue, new Point(3.4, (5 + DEFAULT_POOL_BALL_SIZE), 11, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall5 = new PoolBall(this.getGl(), this.getGlut(), Color.cOrange, new Point(4, (5 + DEFAULT_POOL_BALL_SIZE), 11, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall6 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkGreen, new Point(4.6, (5 + DEFAULT_POOL_BALL_SIZE), 11, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall7 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkRed, new Point(4.9, (5 + DEFAULT_POOL_BALL_SIZE), 11.5, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall8 = new PoolBall(this.getGl(), this.getGlut(), Color.cBlack, new Point(4.3, (5 + DEFAULT_POOL_BALL_SIZE), 11.5, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall9 = new PoolBall(this.getGl(), this.getGlut(), Color.cYellow, new Point(3.7, (5 + DEFAULT_POOL_BALL_SIZE), 11.5, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall10 = new PoolBall(this.getGl(), this.getGlut(), Color.cBlue, new Point(3.1, (5 + DEFAULT_POOL_BALL_SIZE), 11.5, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall11 = new PoolBall(this.getGl(), this.getGlut(), Color.cRed, new Point(2.8, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall12 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkBlue, new Point(3.4, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall13 = new PoolBall(this.getGl(), this.getGlut(), Color.cOrange, new Point(4, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall14 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkGreen, new Point(4.6, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall15 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkRed, new Point(5.2, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
+        
+        poolBalls.add(pBall0);
+        poolBalls.add(pBall1);
+        poolBalls.add(pBall2);
+        poolBalls.add(pBall3);
+        poolBalls.add(pBall4);
+        poolBalls.add(pBall5);
+        poolBalls.add(pBall6);
+        poolBalls.add(pBall7);
+        poolBalls.add(pBall8);
+        poolBalls.add(pBall9);
+        poolBalls.add(pBall10);
+        poolBalls.add(pBall11);
+        poolBalls.add(pBall12);
+        poolBalls.add(pBall13);
+        poolBalls.add(pBall14);
+        poolBalls.add(pBall15);
+
+        return poolBalls;
     }
     
     public GL getGl() {

@@ -12,6 +12,8 @@ public class GraphicSphere {
     private Color color;
     private Point centerPoint;
     private double size;
+    
+    private final int NUM_OF_SUB_DIVISIONS = 100;
 
     public GraphicSphere(GL gl, GLUT glut, Color color, Point centerPoint, double size) {
         this.setGl(gl);
@@ -25,8 +27,8 @@ public class GraphicSphere {
         gl.glColor3d(this.getColor().getRed(), this.getColor().getGreen(), this.getColor().getBlue());
 
         gl.glPushMatrix();
-            gl.glTranslated(1.0, 1.2, -6);
-            glut.glutSolidSphere(1, 50, 50);
+            gl.glTranslated(getCenterPoint().getX(), getCenterPoint().getY(), getCenterPoint().getZ());
+            glut.glutSolidSphere(this.getSize(), NUM_OF_SUB_DIVISIONS, NUM_OF_SUB_DIVISIONS);
         gl.glPopMatrix();
 
     }

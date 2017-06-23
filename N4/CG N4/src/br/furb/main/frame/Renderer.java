@@ -48,11 +48,11 @@ public class Renderer implements GLEventListener, KeyListener {
         
         this.xEye = 20.0f; 		
         this.yEye = 20.0f; 		
-        this.zEye = 20.0f;
+        this.zEye = 23.0f;
         
-        this.xCenter = 0.0f;		
-        this.yCenter = 0.0f;		
-        this.zCenter = 0.0f;
+        this.xCenter = 4.0f;		
+        this.yCenter = 5.0f;		
+        this.zCenter = 7.0f;
 		
         this.setLight();
         

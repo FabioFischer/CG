@@ -8,6 +8,7 @@ package br.furb.main.objects;
 import br.furb.main.objects.*;
 import br.furb.main.utils.Color;
 import com.sun.opengl.util.GLUT;
+import java.util.ArrayList;
 import javax.media.opengl.GL;
 
 public class PoolObjectsRenderer {
@@ -15,9 +16,9 @@ public class PoolObjectsRenderer {
     private GL gl;
     private GLUT glut;
     
-    private PoolBall[] poolBalls;
     private PoolTable poolTable;
     private PoolCueStick poolCueStick;
+    private ArrayList<PoolBall> poolBalls;
     
     private PoolPositions poolPositions;
     
@@ -34,7 +35,7 @@ public class PoolObjectsRenderer {
 
     public void createObjects() {
         this.createPoolTable();
-//        this.setPoolBalls(new PoolBall[]{});
+        this.setPoolBalls(this.poolPositions.createPoolBalls());
 //        this.setPoolCueStick(new PoolCueStick(gl, Color.cBlue, 0, centerPoint, 0, hasLight));
     }
     
@@ -46,8 +47,6 @@ public class PoolObjectsRenderer {
         PoolTableLeg leg3 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg3());
         PoolTableLeg leg4 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg4());
         
-        leg3.exibeVertices();
-        
         this.getPoolTable().addPoolTableLeg(leg1);
         this.getPoolTable().addPoolTableLeg(leg2);
         this.getPoolTable().addPoolTableLeg(leg3);
@@ -56,6 +55,10 @@ public class PoolObjectsRenderer {
     
     public void drawObjects() {
         this.poolTable.drawTableObjects();
+        
+        for (PoolBall poolBall : this.getPoolBalls()) {
+            poolBall.drawSphere();
+        }
     }
 
     public GL getGl() {
@@ -82,11 +85,11 @@ public class PoolObjectsRenderer {
         this.light = hasLight;
     }
     
-    public PoolBall[] getPoolBalls() {
+    public ArrayList<PoolBall> getPoolBalls() {
         return poolBalls;
     }
 
-    public void setPoolBalls(PoolBall[] poolBalls) {
+    public void setPoolBalls(ArrayList<PoolBall> poolBalls) {
         this.poolBalls = poolBalls;
     }
 
