@@ -85,39 +85,39 @@ public class PoolPositions {
         this.POOL_TABLE_TOP_FACE_1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
         this.POOL_TABLE_TOP_FACE_1.addPoint(new Point(0, 5, 0, 1));
         this.POOL_TABLE_TOP_FACE_1.addPoint(new Point(0, 4, 0, 1));
-        this.POOL_TABLE_TOP_FACE_1.addPoint(new Point(6, 4, 0, 1));
-        this.POOL_TABLE_TOP_FACE_1.addPoint(new Point(6, 5, 0, 1));
+        this.POOL_TABLE_TOP_FACE_1.addPoint(new Point(8, 4, 0, 1));
+        this.POOL_TABLE_TOP_FACE_1.addPoint(new Point(8, 5, 0, 1));
         
         this.POOL_TABLE_TOP_FACE_2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
         this.POOL_TABLE_TOP_FACE_2.addPoint(new Point(0, 5, 14, 1));
         this.POOL_TABLE_TOP_FACE_2.addPoint(new Point(0, 4, 14, 1));
-        this.POOL_TABLE_TOP_FACE_2.addPoint(new Point(6, 4, 14, 1));
-        this.POOL_TABLE_TOP_FACE_2.addPoint(new Point(6, 5, 14, 1));
+        this.POOL_TABLE_TOP_FACE_2.addPoint(new Point(8, 4, 14, 1));
+        this.POOL_TABLE_TOP_FACE_2.addPoint(new Point(8, 5, 14, 1));
         
-        this.POOL_TABLE_TOP_FACE_3 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_TOP_FACE_3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
         this.POOL_TABLE_TOP_FACE_3.addPoint(new Point(0, 5, 0, 1));
-        this.POOL_TABLE_TOP_FACE_3.addPoint(new Point(0, 4, 0, 1));
-        this.POOL_TABLE_TOP_FACE_3.addPoint(new Point(0, 4, 14, 1));
         this.POOL_TABLE_TOP_FACE_3.addPoint(new Point(0, 5, 14, 1));
+        this.POOL_TABLE_TOP_FACE_3.addPoint(new Point(8, 5, 14, 1));
+        this.POOL_TABLE_TOP_FACE_3.addPoint(new Point(8, 5, 0, 1));
         
-        this.POOL_TABLE_TOP_FACE_4 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
-        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(6, 5, 0, 1));
-        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(6, 4, 0, 1));
-        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(6, 4, 14, 1));
-        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(6, 5, 14, 1));
+        this.POOL_TABLE_TOP_FACE_4 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
+        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(0, 4, 0, 1));
+        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(8, 4, 0, 1));
+        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(8, 4, 14, 1));
+        this.POOL_TABLE_TOP_FACE_4.addPoint(new Point(0, 4, 14, 1));
         
-        this.POOL_TABLE_TOP_FACE_5 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
+        this.POOL_TABLE_TOP_FACE_5 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_TOP_FACE_5.addPoint(new Point(0, 4, 0, 1));
         this.POOL_TABLE_TOP_FACE_5.addPoint(new Point(0, 5, 0, 1));
-        this.POOL_TABLE_TOP_FACE_5.addPoint(new Point(6, 5, 0, 1));
-        this.POOL_TABLE_TOP_FACE_5.addPoint(new Point(6, 5, 14, 1));
         this.POOL_TABLE_TOP_FACE_5.addPoint(new Point(0, 5, 14, 1));
+        this.POOL_TABLE_TOP_FACE_5.addPoint(new Point(0, 4, 14, 1));
         
-        this.POOL_TABLE_TOP_FACE_6 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
-        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(0, 4, 0, 1));
-        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(6, 4, 0, 1));
-        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(6, 4, 14, 1));
-        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(0, 4, 14, 1));
-        
+        this.POOL_TABLE_TOP_FACE_6 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
+        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(8, 4, 0, 1));
+        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(8, 5, 0, 1));
+        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(8, 5, 14, 1));
+        this.POOL_TABLE_TOP_FACE_6.addPoint(new Point(8, 4, 14, 1));
+                
         faces.add(POOL_TABLE_TOP_FACE_1);
         faces.add(POOL_TABLE_TOP_FACE_2);
         faces.add(POOL_TABLE_TOP_FACE_3);
@@ -127,7 +127,203 @@ public class PoolPositions {
         
         return faces;
     } 
+    
+    public ArrayList<GraphicFace> createPoolTableLeg1() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        this.POOL_TABLE_LEG_1_FACE_1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
+        this.POOL_TABLE_LEG_1_FACE_1.addPoint(new Point(0, 0, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_1.addPoint(new Point(1, 0, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_1.addPoint(new Point(1, 4, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_1.addPoint(new Point(0, 4, 0, 1));
+        
+        this.POOL_TABLE_LEG_1_FACE_2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
+        this.POOL_TABLE_LEG_1_FACE_2.addPoint(new Point(0, 0, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_2.addPoint(new Point(1, 0, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_2.addPoint(new Point(1, 4, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_2.addPoint(new Point(0, 4, 1, 1));
+        
+        this.POOL_TABLE_LEG_1_FACE_3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
+        this.POOL_TABLE_LEG_1_FACE_3.addPoint(new Point(0, 4, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_3.addPoint(new Point(0, 4, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_3.addPoint(new Point(1, 4, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_3.addPoint(new Point(1, 4, 0, 1));
+        
+        this.POOL_TABLE_LEG_1_FACE_4 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
+        this.POOL_TABLE_LEG_1_FACE_4.addPoint(new Point(0, 0, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_4.addPoint(new Point(0, 0, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_4.addPoint(new Point(1, 0, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_4.addPoint(new Point(1, 0, 0, 1));
+        
+        this.POOL_TABLE_LEG_1_FACE_5 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_LEG_1_FACE_5.addPoint(new Point(0, 0, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_5.addPoint(new Point(0, 4, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_5.addPoint(new Point(0, 4, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_5.addPoint(new Point(0, 0, 1, 1));
+        
+        this.POOL_TABLE_LEG_1_FACE_6 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
+        this.POOL_TABLE_LEG_1_FACE_6.addPoint(new Point(1, 0, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_6.addPoint(new Point(1, 4, 0, 1));
+        this.POOL_TABLE_LEG_1_FACE_6.addPoint(new Point(1, 4, 1, 1));
+        this.POOL_TABLE_LEG_1_FACE_6.addPoint(new Point(1, 0, 1, 1));
+        
+        faces.add(POOL_TABLE_LEG_1_FACE_1);
+        faces.add(POOL_TABLE_LEG_1_FACE_2);
+        faces.add(POOL_TABLE_LEG_1_FACE_3);
+        faces.add(POOL_TABLE_LEG_1_FACE_4);
+        faces.add(POOL_TABLE_LEG_1_FACE_5);
+        faces.add(POOL_TABLE_LEG_1_FACE_6);
+        
+        return faces;
+    }
 
+    public ArrayList<GraphicFace> createPoolTableLeg2() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        this.POOL_TABLE_LEG_2_FACE_1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
+        this.POOL_TABLE_LEG_2_FACE_1.addPoint(new Point(7, 0, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_1.addPoint(new Point(8, 0, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_1.addPoint(new Point(8, 4, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_1.addPoint(new Point(7, 4, 0, 1));
+        
+        this.POOL_TABLE_LEG_2_FACE_2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
+        this.POOL_TABLE_LEG_2_FACE_2.addPoint(new Point(7, 0, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_2.addPoint(new Point(8, 0, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_2.addPoint(new Point(8, 4, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_2.addPoint(new Point(7, 4, 1, 1));
+        
+        this.POOL_TABLE_LEG_2_FACE_3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
+        this.POOL_TABLE_LEG_2_FACE_3.addPoint(new Point(7, 4, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_3.addPoint(new Point(7, 4, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_3.addPoint(new Point(8, 4, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_3.addPoint(new Point(8, 4, 0, 1));
+        
+        this.POOL_TABLE_LEG_2_FACE_4 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
+        this.POOL_TABLE_LEG_2_FACE_4.addPoint(new Point(7, 0, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_4.addPoint(new Point(7, 0, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_4.addPoint(new Point(8, 0, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_4.addPoint(new Point(8, 0, 0, 1));
+        
+        this.POOL_TABLE_LEG_2_FACE_5 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_LEG_2_FACE_5.addPoint(new Point(7, 0, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_5.addPoint(new Point(7, 4, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_5.addPoint(new Point(7, 4, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_5.addPoint(new Point(7, 0, 1, 1));
+        
+        this.POOL_TABLE_LEG_2_FACE_6 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
+        this.POOL_TABLE_LEG_2_FACE_6.addPoint(new Point(8, 0, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_6.addPoint(new Point(8, 4, 0, 1));
+        this.POOL_TABLE_LEG_2_FACE_6.addPoint(new Point(8, 4, 1, 1));
+        this.POOL_TABLE_LEG_2_FACE_6.addPoint(new Point(8, 0, 1, 1));
+        
+        faces.add(POOL_TABLE_LEG_2_FACE_1);
+        faces.add(POOL_TABLE_LEG_2_FACE_2);
+        faces.add(POOL_TABLE_LEG_2_FACE_3);
+        faces.add(POOL_TABLE_LEG_2_FACE_4);
+        faces.add(POOL_TABLE_LEG_2_FACE_5);
+        faces.add(POOL_TABLE_LEG_2_FACE_6);
+        
+        return faces;
+    }
+    
+    public ArrayList<GraphicFace> createPoolTableLeg3() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        this.POOL_TABLE_LEG_3_FACE_1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
+        this.POOL_TABLE_LEG_3_FACE_1.addPoint(new Point(0, 0, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_1.addPoint(new Point(1, 0, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_1.addPoint(new Point(1, 4, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_1.addPoint(new Point(0, 4, 13, 1));
+        
+        this.POOL_TABLE_LEG_3_FACE_2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
+        this.POOL_TABLE_LEG_3_FACE_2.addPoint(new Point(0, 0, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_2.addPoint(new Point(1, 0, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_2.addPoint(new Point(1, 4, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_2.addPoint(new Point(0, 4, 14, 1));
+        
+        this.POOL_TABLE_LEG_3_FACE_3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
+        this.POOL_TABLE_LEG_3_FACE_3.addPoint(new Point(0, 4, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_3.addPoint(new Point(0, 4, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_3.addPoint(new Point(1, 4, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_3.addPoint(new Point(1, 4, 13, 1));
+        
+        this.POOL_TABLE_LEG_3_FACE_4 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
+        this.POOL_TABLE_LEG_3_FACE_4.addPoint(new Point(0, 0, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_4.addPoint(new Point(0, 0, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_4.addPoint(new Point(1, 0, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_4.addPoint(new Point(1, 0, 13, 1));
+        
+        this.POOL_TABLE_LEG_3_FACE_5 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
+        this.POOL_TABLE_LEG_3_FACE_5.addPoint(new Point(1, 0, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_5.addPoint(new Point(1, 4, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_5.addPoint(new Point(1, 4, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_5.addPoint(new Point(1, 0, 14, 1));
+                
+        this.POOL_TABLE_LEG_3_FACE_6 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_LEG_3_FACE_6.addPoint(new Point(0, 0, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_6.addPoint(new Point(0, 4, 13, 1));
+        this.POOL_TABLE_LEG_3_FACE_6.addPoint(new Point(0, 4, 14, 1));
+        this.POOL_TABLE_LEG_3_FACE_6.addPoint(new Point(0, 0, 14, 1));
+        
+        faces.add(POOL_TABLE_LEG_3_FACE_1);
+        faces.add(POOL_TABLE_LEG_3_FACE_2);
+        faces.add(POOL_TABLE_LEG_3_FACE_3);
+        faces.add(POOL_TABLE_LEG_3_FACE_4);
+        faces.add(POOL_TABLE_LEG_3_FACE_5);
+        faces.add(POOL_TABLE_LEG_3_FACE_6);
+        
+        return faces;
+    }
+        
+    public ArrayList<GraphicFace> createPoolTableLeg4() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        this.POOL_TABLE_LEG_4_FACE_1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
+        this.POOL_TABLE_LEG_4_FACE_1.addPoint(new Point(7, 0, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_1.addPoint(new Point(8, 0, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_1.addPoint(new Point(8, 4, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_1.addPoint(new Point(7, 4, 13, 1));
+        
+        this.POOL_TABLE_LEG_4_FACE_2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
+        this.POOL_TABLE_LEG_4_FACE_2.addPoint(new Point(7, 0, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_2.addPoint(new Point(8, 0, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_2.addPoint(new Point(8, 4, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_2.addPoint(new Point(7, 4, 14, 1));
+        
+        this.POOL_TABLE_LEG_4_FACE_3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
+        this.POOL_TABLE_LEG_4_FACE_3.addPoint(new Point(7, 4, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_3.addPoint(new Point(7, 4, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_3.addPoint(new Point(8, 4, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_3.addPoint(new Point(8, 4, 13, 1));
+        
+        this.POOL_TABLE_LEG_4_FACE_4 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
+        this.POOL_TABLE_LEG_4_FACE_4.addPoint(new Point(7, 0, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_4.addPoint(new Point(7, 0, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_4.addPoint(new Point(8, 0, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_4.addPoint(new Point(8, 0, 13, 1));
+        
+        this.POOL_TABLE_LEG_4_FACE_5 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_LEG_4_FACE_5.addPoint(new Point(7, 0, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_5.addPoint(new Point(7, 4, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_5.addPoint(new Point(7, 4, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_5.addPoint(new Point(7, 0, 14, 1));
+        
+        this.POOL_TABLE_LEG_4_FACE_6 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
+        this.POOL_TABLE_LEG_4_FACE_6.addPoint(new Point(8, 0, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_6.addPoint(new Point(8, 4, 13, 1));
+        this.POOL_TABLE_LEG_4_FACE_6.addPoint(new Point(8, 4, 14, 1));
+        this.POOL_TABLE_LEG_4_FACE_6.addPoint(new Point(8, 0, 14, 1));
+        
+        faces.add(POOL_TABLE_LEG_4_FACE_1);
+        faces.add(POOL_TABLE_LEG_4_FACE_2);
+        faces.add(POOL_TABLE_LEG_4_FACE_3);
+        faces.add(POOL_TABLE_LEG_4_FACE_4);
+        faces.add(POOL_TABLE_LEG_4_FACE_5);
+        faces.add(POOL_TABLE_LEG_4_FACE_6);
+        
+        return faces;
+    }
+    
     public GL getGl() {
         return gl;
     }

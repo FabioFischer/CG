@@ -21,25 +21,41 @@ public class PoolObjectsRenderer {
     
     private PoolPositions poolPositions;
     
-    private boolean hasLight;
+    private boolean light;
     
-    public PoolObjectsRenderer(GL gl, GLUT glut, boolean hasLight) {
+    public PoolObjectsRenderer(GL gl, GLUT glut, boolean light) {
         this.setGl(gl);
         this.setGlut(glut);
-        this.setLight(hasLight);
+        this.setLight(light);
         
         this.poolPositions = new PoolPositions(gl, glut);
         this.createObjects();
     }
 
     public void createObjects() {
-        this.setPoolTable(new PoolTable(gl, Color.cBlue, poolPositions.createPoolTableTopFaces(), this.HasLight()));
+        this.createPoolTable();
 //        this.setPoolBalls(new PoolBall[]{});
 //        this.setPoolCueStick(new PoolCueStick(gl, Color.cBlue, 0, centerPoint, 0, hasLight));
     }
     
+    public void createPoolTable() {
+        this.setPoolTable(new PoolTable(this.getGl(), Color.cGreen, poolPositions.createPoolTableTopFaces(), this.HasLight()));
+        
+        PoolTableLeg leg1 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg1());
+        PoolTableLeg leg2 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg2());
+        PoolTableLeg leg3 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg3());
+        PoolTableLeg leg4 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg4());
+        
+        leg3.exibeVertices();
+        
+        this.getPoolTable().addPoolTableLeg(leg1);
+        this.getPoolTable().addPoolTableLeg(leg2);
+        this.getPoolTable().addPoolTableLeg(leg3);
+        this.getPoolTable().addPoolTableLeg(leg4);
+    }
+    
     public void drawObjects() {
-        this.poolTable.drawObject();
+        this.poolTable.drawTableObjects();
     }
 
     public GL getGl() {
@@ -59,11 +75,11 @@ public class PoolObjectsRenderer {
     }
 
     public boolean HasLight() {
-        return hasLight;
+        return light;
     }
 
     public void setLight(boolean hasLight) {
-        this.hasLight = hasLight;
+        this.light = hasLight;
     }
     
     public PoolBall[] getPoolBalls() {

@@ -31,6 +31,7 @@ public abstract class GraphicPolygon {
         this.setColor(color);
         this.setObjectFaces(new ArrayList<>());
         this.setDependentObjects(new ArrayList<>());
+        this.setLight(hasLight);
 
         this.setObjTransformation(new ObjectTransformation());
     }
@@ -40,11 +41,16 @@ public abstract class GraphicPolygon {
         this.setColor(color);
         this.setObjectFaces(faces);
         this.setDependentObjects(new ArrayList<>());
+        this.setLight(hasLight);
 
         this.setObjTransformation(new ObjectTransformation());
     }
     
     public void drawObject() {
+        this.getGl().glColor3d(this.getColor().getRed(), this.getColor().getGreen(), this.getColor().getBlue());
+        
+        System.out.println(this.hasLight());
+        
         if (this.hasLight()) {
             this.getGl().glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE, this.getColor().getColorArrayF(), 0);
             this.getGl().glEnable(GL.GL_LIGHTING);
@@ -54,6 +60,7 @@ public abstract class GraphicPolygon {
             this.getGl().glMultMatrixd(this.getObjTransformation().getMainMatrix().getMatrix(), 0);
             this.getGl().glBegin(this.getPrimitive());
                 for (GraphicFace objectFace : this.getObjectFaces()) {
+                    System.out.println("Desenhando face");
                     objectFace.drawFace();
                 }
             this.getGl().glEnd();

@@ -30,7 +30,7 @@ public class Renderer implements GLEventListener, KeyListener {
     private float xEye, yEye, zEye;
     private float xCenter, yCenter, zCenter;
     
-    private boolean light = false;
+    private boolean light = true;
     
     private PoolObjectsRenderer poolObjects;
         
@@ -136,7 +136,7 @@ public class Renderer implements GLEventListener, KeyListener {
     
     public void setLight() {        
         if (this.isLight()) {
-            float posLight[] = { 5.0f, 5.0f, 10.0f, 0.0f };
+            float posLight[] = { 20.0f, 20.0f, 20.0f, 0.0f };
             gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
             gl.glEnable(GL.GL_LIGHT0);
         } else {

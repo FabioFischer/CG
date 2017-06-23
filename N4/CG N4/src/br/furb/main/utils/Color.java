@@ -18,6 +18,7 @@ public class Color {
     public static final Color cRed = new Color(1, 0, 0, 1);
     public static final Color cGreen = new Color(0, 1, 0, 1);
     public static final Color cBlue = new Color(0, 0, 1, 1);
+    public static final Color cBrown = new Color(0.2, 0.1, 0, 1);
     
     public Color (double red, double green, double blue, double alpha) {
         this.setRed(red);

@@ -8,7 +8,6 @@ package br.furb.main.objects;
 import br.furb.main.controller.GraphicFace;
 import br.furb.main.controller.GraphicPolygon;
 import br.furb.main.utils.Color;
-import br.furb.main.utils.Point;
 import java.util.ArrayList;
 import javax.media.opengl.GL;
 
@@ -16,11 +15,37 @@ public class PoolTable extends GraphicPolygon{
     
     private ArrayList<GraphicFace> faces;
     
-    private PoolTableLeg[] poolTableLegs;
-    private PoolTableMarginSegment[] poolTableMarginSegments;
+    private ArrayList<PoolTableLeg> poolTableLegs;
+    private ArrayList<PoolTableMarginSegment> poolTableMarginSegments;
     
     public PoolTable(GL gl, Color color, ArrayList<GraphicFace> faces, boolean hasLight) {
         super(gl, color, hasLight, faces);
+        
+        this.setPoolTableLegs(new ArrayList<>());
+        this.setPoolTableMarginSegments(new ArrayList<>());
+    }
+    
+    public void drawTableObjects() {
+        this.drawObject();
+        
+        for (PoolTableLeg tableLeg : this.getPoolTableLegs()) {
+            tableLeg.drawObject();
+        }
+        for (PoolTableMarginSegment tableMarginSegment : this.getPoolTableMarginSegments()) {
+            tableMarginSegment.drawObject();
+        }
+    }
+    
+    public void addPoolTableLeg(PoolTableLeg tableLeg) {
+        if (!this.getPoolTableLegs().contains(tableLeg)) {
+            this.getPoolTableLegs().add(tableLeg);
+        }
+    }
+    
+    public void addPoolTableMarginSegment(PoolTableMarginSegment tableLeg) {
+        if (!this.getPoolTableMarginSegments().contains(tableLeg)) {
+            this.getPoolTableMarginSegments().add(tableLeg);
+        }
     }
     
     public ArrayList<GraphicFace> getFaces() {
@@ -31,19 +56,19 @@ public class PoolTable extends GraphicPolygon{
         this.faces = faces;
     }
 
-    public PoolTableLeg[] getPoolTableLegs() {
+    public ArrayList<PoolTableLeg> getPoolTableLegs() {
         return poolTableLegs;
     }
 
-    public void setPoolTableLegs(PoolTableLeg[] poolTableLegs) {
+    public void setPoolTableLegs(ArrayList<PoolTableLeg> poolTableLegs) {
         this.poolTableLegs = poolTableLegs;
     }
 
-    public PoolTableMarginSegment[] getPoolTableMarginSegments() {
+    public ArrayList<PoolTableMarginSegment> getPoolTableMarginSegments() {
         return poolTableMarginSegments;
     }
 
-    public void setPoolTableMarginSegments(PoolTableMarginSegment[] poolTableMarginSegments) {
+    public void setPoolTableMarginSegments(ArrayList<PoolTableMarginSegment> poolTableMarginSegments) {
         this.poolTableMarginSegments = poolTableMarginSegments;
     }
 }

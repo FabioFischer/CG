@@ -55,16 +55,17 @@ public class GraphicFace {
             case BOTTOM_FACE_TYPE:
 		this.getGl().glNormal3f(0,-1,0);
                 break;
-            case LEFT_FACE_TYPE:
+            case RIGHT_FACE_TYPE:
 		this.getGl().glNormal3f(1,0,0);
                 break;
-            case RIGHT_FACE_TYPE:
+            case LEFT_FACE_TYPE:
 		this.getGl().glNormal3f(-1,0,0);
                 break;
         }
         
         if (!this.getObjectPoints().isEmpty()) {
             for (Point objectPoint : this.getObjectPoints()) {
+                System.out.println("X: " + objectPoint.getX() + " / Y: " + objectPoint.getY() + " / Z: " + objectPoint.getZ());
                 this.getGl().glVertex3d(objectPoint.getX(), objectPoint.getY(), objectPoint.getZ());
             }
         }
