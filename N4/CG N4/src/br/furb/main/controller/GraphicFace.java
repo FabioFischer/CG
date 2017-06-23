@@ -12,12 +12,12 @@ public class GraphicFace {
     
     private BoundBox bondBox;
     
-    public final int FRONT_FACE_TYPE = 0;
-    public final int BACK_FACE_TYPE = 1;
-    public final int TOP_FACE_TYPE = 2;
-    public final int BOTTOM_FACE_TYPE = 3;
-    public final int LEFT_FACE_TYPE = 4;
-    public final int RIGHT_FACE_TYPE = 5;
+    public static final int FRONT_FACE_TYPE = 1;
+    public static final int BACK_FACE_TYPE = 2;
+    public static final int TOP_FACE_TYPE = 3;
+    public static final int BOTTOM_FACE_TYPE = 4;
+    public static final int LEFT_FACE_TYPE = 5;
+    public static final int RIGHT_FACE_TYPE = 6;
         
     public GraphicFace(GL gl, int faceType) {
         this.setGl(gl);

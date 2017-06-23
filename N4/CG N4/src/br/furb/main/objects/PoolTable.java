@@ -5,6 +5,7 @@
  */
 package br.furb.main.objects;
 
+import br.furb.main.controller.GraphicFace;
 import br.furb.main.controller.GraphicPolygon;
 import br.furb.main.utils.Color;
 import br.furb.main.utils.Point;
@@ -13,18 +14,36 @@ import javax.media.opengl.GL;
 
 public class PoolTable extends GraphicPolygon{
     
-    private ArrayList<Point> points;
+    private ArrayList<GraphicFace> faces;
     
-    public PoolTable(GL gl, Color color, float width, ArrayList<Point> points) {
-        super(gl, color, width);
-        
+    private PoolTableLeg[] poolTableLegs;
+    private PoolTableMarginSegment[] poolTableMarginSegments;
+    
+    public PoolTable(GL gl, Color color, ArrayList<GraphicFace> faces, boolean hasLight) {
+        super(gl, color, hasLight, faces);
     }
     
-    public ArrayList<Point> getPoints() {
-        return this.points;
+    public ArrayList<GraphicFace> getFaces() {
+        return this.faces;
     }
 
-    public void setPoints(ArrayList<Point> points) {
-        this.points = points;
+    public void setFaces(ArrayList<GraphicFace> faces) {
+        this.faces = faces;
+    }
+
+    public PoolTableLeg[] getPoolTableLegs() {
+        return poolTableLegs;
+    }
+
+    public void setPoolTableLegs(PoolTableLeg[] poolTableLegs) {
+        this.poolTableLegs = poolTableLegs;
+    }
+
+    public PoolTableMarginSegment[] getPoolTableMarginSegments() {
+        return poolTableMarginSegments;
+    }
+
+    public void setPoolTableMarginSegments(PoolTableMarginSegment[] poolTableMarginSegments) {
+        this.poolTableMarginSegments = poolTableMarginSegments;
     }
 }

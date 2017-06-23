@@ -15,25 +15,53 @@ import javax.media.opengl.GL;
 
 public abstract class GraphicPolygon {
 
-    private final int primitive = GL.GL_LINE_STRIP;
+    private final int primitive = GL.GL_QUADS;
 
     private GL gl;
     private Color color;
-    private double width;
-
+    private boolean hasLight;
+    
     private ArrayList<GraphicFace> objectFaces;
     private ArrayList<GraphicPolygon> dependentObjects;
 
     private ObjectTransformation objTransformation;
 
-    public GraphicPolygon(GL gl, Color color, float width) {
+    public GraphicPolygon(GL gl, Color color, boolean hasLight) {
         this.setGl(gl);
         this.setColor(color);
-        this.setWidth(width);
         this.setObjectFaces(new ArrayList<>());
         this.setDependentObjects(new ArrayList<>());
 
         this.setObjTransformation(new ObjectTransformation());
+    }
+    
+    public GraphicPolygon(GL gl, Color color, boolean hasLight, ArrayList<GraphicFace> faces) {
+        this.setGl(gl);
+        this.setColor(color);
+        this.setObjectFaces(faces);
+        this.setDependentObjects(new ArrayList<>());
+
+        this.setObjTransformation(new ObjectTransformation());
+    }
+    
+    public void drawObject() {
+        if (this.hasLight()) {
+            this.getGl().glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE, this.getColor().getColorArrayF(), 0);
+            this.getGl().glEnable(GL.GL_LIGHTING);
+        }
+        
+        this.getGl().glPushMatrix();
+            this.getGl().glMultMatrixd(this.getObjTransformation().getMainMatrix().getMatrix(), 0);
+            this.getGl().glBegin(this.getPrimitive());
+                for (GraphicFace objectFace : this.getObjectFaces()) {
+                    objectFace.drawFace();
+                }
+            this.getGl().glEnd();
+        this.getGl().glPopMatrix();
+        
+        if (this.hasLight()) {
+            this.getGl().glDisable(GL.GL_LIGHTING);
+        }
     }
     
     public void addFace(GraphicFace face) {
@@ -97,6 +125,14 @@ public abstract class GraphicPolygon {
 //        }
 //    }
 
+    public boolean hasLight() {
+        return hasLight;
+    }
+
+    public void setLight(boolean hasLight) {
+        this.hasLight = hasLight;
+    }
+
     public int getPrimitive() {
         return primitive;
     }
@@ -115,14 +151,6 @@ public abstract class GraphicPolygon {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;        
     }
 
     public ArrayList<GraphicPolygon> getDependentObjects() {

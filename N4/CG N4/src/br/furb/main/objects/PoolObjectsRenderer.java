@@ -6,24 +6,56 @@
 package br.furb.main.objects;
 
 import br.furb.main.objects.*;
+import br.furb.main.utils.Color;
+import com.sun.opengl.util.GLUT;
+import javax.media.opengl.GL;
 
 public class PoolObjectsRenderer {
     
+    private GL gl;
+    private GLUT glut;
+    
     private PoolBall[] poolBalls;
     private PoolTable poolTable;
-    private PoolTableLeg[] poolTableLegs;
-    private PoolTableMarginSegment[] poolTableMarginSegments;
+    private PoolCueStick poolCueStick;
+    
+    private PoolPositions poolPositions;
     
     private boolean hasLight;
     
-    public PoolObjectsRenderer() {
+    public PoolObjectsRenderer(GL gl, GLUT glut, boolean hasLight) {
+        this.setGl(gl);
+        this.setGlut(glut);
+        this.setLight(hasLight);
+        
+        this.poolPositions = new PoolPositions(gl, glut);
+        this.createObjects();
     }
 
     public void createObjects() {
-//        this.setPoolTable(new PoolTable(gl, Color.cBlue, 0, null));
+        this.setPoolTable(new PoolTable(gl, Color.cBlue, poolPositions.createPoolTableTopFaces(), this.HasLight()));
 //        this.setPoolBalls(new PoolBall[]{});
-//        this.setPoolTableLegs(new PoolTableLeg[]{});
-//        this.setPoolTableMarginSegments(new PoolTableMarginSegment[]{});
+//        this.setPoolCueStick(new PoolCueStick(gl, Color.cBlue, 0, centerPoint, 0, hasLight));
+    }
+    
+    public void drawObjects() {
+        this.poolTable.drawObject();
+    }
+
+    public GL getGl() {
+        return gl;
+    }
+
+    public void setGl(GL gl) {
+        this.gl = gl;
+    }
+
+    public GLUT getGlut() {
+        return glut;
+    }
+
+    public void setGlut(GLUT glut) {
+        this.glut = glut;
     }
 
     public boolean HasLight() {
@@ -50,19 +82,11 @@ public class PoolObjectsRenderer {
         this.poolTable = poolTable;
     }
 
-    public PoolTableMarginSegment[] getPoolTableMarginSegments() {
-        return poolTableMarginSegments;
+    public PoolCueStick getPoolCueStick() {
+        return poolCueStick;
     }
 
-    public void setPoolTableMarginSegments(PoolTableMarginSegment[] poolTableMarginSegments) {
-        this.poolTableMarginSegments = poolTableMarginSegments;
-    }
-
-    public PoolTableLeg[] getPoolTableLegs() {
-        return poolTableLegs;
-    }
-
-    public void setPoolTableLegs(PoolTableLeg[] poolTableLegs) {
-        this.poolTableLegs = poolTableLegs;
+    public void setPoolCueStick(PoolCueStick poolCueStick) {
+        this.poolCueStick = poolCueStick;
     }
 }

@@ -6,8 +6,8 @@ import javax.media.opengl.GL;
 
 public class PoolTableLeg extends GraphicPolygon {
     
-    public PoolTableLeg(GL gl, Color color, float width) {
-        super(gl, color, width);
+    public PoolTableLeg(GL gl, Color color, boolean hasLight) {
+        super(gl, color, hasLight);
     }
     
 }

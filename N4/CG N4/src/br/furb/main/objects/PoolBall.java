@@ -1,29 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.furb.main.objects;
 
-import br.furb.main.controller.GraphicPolygon;
+import br.furb.main.controller.GraphicSphere;
 import br.furb.main.utils.Color;
 import br.furb.main.utils.Point;
+import com.sun.opengl.util.GLUT;
 import javax.media.opengl.GL;
 
-/**
- *
- * @author fabio.fischer
- */
-public class PoolBall extends GraphicPolygon{
+public class PoolBall extends GraphicSphere{
     
     private Point centerPoint;
     private double size;
-    
-    public PoolBall(GL gl, Color color, float width, Point centerPoint, double size) {
-        super(gl, color, width);
-        this.setCenterPoint(centerPoint);
-        this.setSize(size);
-    }
+
+    public PoolBall(GL gl, GLUT glut, Color color, Point centerPoint, double size) {
+        super(gl, glut, color, centerPoint, size);
+    }    
 
     public Point getCenterPoint() {
         return centerPoint;

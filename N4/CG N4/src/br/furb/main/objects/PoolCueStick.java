@@ -19,8 +19,8 @@ public class PoolCueStick extends GraphicPolygon {
     private Point centerPoint;
     private double size;
     
-    public PoolCueStick(GL gl, Color color, float width, Point centerPoint, double size) {
-        super(gl, color, width);
+    public PoolCueStick(GL gl, Color color, Point centerPoint, double size, boolean hasLight) {
+        super(gl, color, hasLight);
         this.setCenterPoint(centerPoint);
         this.setSize(size);
     }

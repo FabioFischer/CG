@@ -1,5 +1,6 @@
 package br.furb.main.frame;
 
+import br.furb.main.objects.PoolObjectsRenderer;
 import br.furb.main.utils.Axis;
 import com.sun.opengl.util.GLUT;
 import java.awt.event.KeyEvent;
@@ -29,8 +30,10 @@ public class Renderer implements GLEventListener, KeyListener {
     private float xEye, yEye, zEye;
     private float xCenter, yCenter, zCenter;
     
-    private boolean light;
+    private boolean light = false;
     
+    private PoolObjectsRenderer poolObjects;
+        
     public void init(GLAutoDrawable drawable) {
         this.setGlDrawable(drawable);
         this.setGl(drawable.getGL());
@@ -52,6 +55,8 @@ public class Renderer implements GLEventListener, KeyListener {
         this.zCenter = 0.0f;
 		
         this.setLight();
+        
+        this.setPoolObjects(new PoolObjectsRenderer(this.getGl(), this.getGlut(), this.isLight()));
 
         this.getGl().glEnable(GL.GL_CULL_FACE);
         this.getGl().glEnable(GL.GL_DEPTH_TEST);
@@ -73,6 +78,8 @@ public class Renderer implements GLEventListener, KeyListener {
         
         this.getGlu().gluLookAt(xEye, yEye, zEye, xCenter, yCenter, zCenter, 0, 1, 0);
         this.axis.drawAxis();
+        
+        this.getPoolObjects().drawObjects();
         
         this.getGl().glFlush();
     }
@@ -127,7 +134,7 @@ public class Renderer implements GLEventListener, KeyListener {
     public void Debug() {
     }
     
-    public void setLight() {
+    public void setLight() {        
         if (this.isLight()) {
             float posLight[] = { 5.0f, 5.0f, 10.0f, 0.0f };
             gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
@@ -135,6 +142,18 @@ public class Renderer implements GLEventListener, KeyListener {
         } else {
             gl.glDisable(GL.GL_LIGHT0);
         }
+        
+        if (this.getPoolObjects() != null) {
+            this.getPoolObjects().setLight(this.isLight());
+        }
+    }
+
+    public PoolObjectsRenderer getPoolObjects() {
+        return poolObjects;
+    }
+
+    public void setPoolObjects(PoolObjectsRenderer poolObjects) {
+        this.poolObjects = poolObjects;
     }
 
     public boolean isLight() {

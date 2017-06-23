@@ -15,8 +15,8 @@ import javax.media.opengl.GL;
  */
 public class PoolTableMarginSegment extends GraphicPolygon {
     
-    public PoolTableMarginSegment(GL gl, Color color, float width) {
-        super(gl, color, width);
+    public PoolTableMarginSegment(GL gl, Color color, boolean hasLight) {
+        super(gl, color, hasLight);
     }
     
 }

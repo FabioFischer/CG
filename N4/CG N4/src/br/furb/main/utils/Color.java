@@ -25,6 +25,14 @@ public class Color {
         this.setBlue(blue);
         this.setAlpha(alpha);
     }
+    
+    public float[] getColorArrayF() {
+        return new float[]{this.getRedF(), this.getGreenF(), this.getBlueF(), this.getAlphaF()};
+    }
+    
+    public double[] getColorArrayD() {
+        return new double[]{this.getRed(), this.getGreen(), this.getBlue(), this.getAlpha()};
+    }
 
     public static Color getRandomColor () {
         Random rand = new Random();        
@@ -33,6 +41,10 @@ public class Color {
     
     public double getRed() {
         return red;
+    }
+    
+    public float getRedF() {
+        return (float)red;
     }
 
     public void setRed(double red) {
@@ -43,6 +55,10 @@ public class Color {
         return green;
     }
 
+    public float getGreenF() {
+        return (float)green;
+    }
+
     public void setGreen(double green) {
         this.green = green;
     }
@@ -50,13 +66,22 @@ public class Color {
     public double getBlue() {
         return blue;
     }
+    
+    public float getBlueF() {
+        return (float)blue;
+    }
 
     public void setBlue(double blue) {
         this.blue = blue;
-    }    
+    }
+  
 
     public double getAlpha() {
         return alpha;
+    }
+    
+    public float getAlphaF() {
+        return (float)alpha;
     }
 
     public void setAlpha(double alpha) {
