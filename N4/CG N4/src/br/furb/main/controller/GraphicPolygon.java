@@ -24,16 +24,12 @@ public abstract class GraphicPolygon {
     private ArrayList<GraphicFace> objectFaces;
     private ArrayList<GraphicPolygon> dependentObjects;
 
-    private ObjectTransformation objTransformation;
-
     public GraphicPolygon(GL gl, Color color, boolean hasLight) {
         this.setGl(gl);
         this.setColor(color);
         this.setObjectFaces(new ArrayList<>());
         this.setDependentObjects(new ArrayList<>());
         this.setLight(hasLight);
-
-        this.setObjTransformation(new ObjectTransformation());
     }
     
     public GraphicPolygon(GL gl, Color color, boolean hasLight, ArrayList<GraphicFace> faces) {
@@ -42,8 +38,6 @@ public abstract class GraphicPolygon {
         this.setObjectFaces(faces);
         this.setDependentObjects(new ArrayList<>());
         this.setLight(hasLight);
-
-        this.setObjTransformation(new ObjectTransformation());
     }
     
     public void drawObject() {
@@ -91,43 +85,6 @@ public abstract class GraphicPolygon {
             this.getDependentObjects().remove(obj);
         }
     }
-//
-//    public void translate(double dx, double dy, double dz) {
-//        this.getObjTransformation().translate3D(dx, dy, dz);
-//        this.getObjTransformation().getMainMatrix().exibeMatriz();
-//        this.translateDependents(dx, dy, dz, this.getDependentObjects());
-//    }
-//    
-//    public void translateDependents(double dx, double dy, double dz, ArrayList<GraphicPolygon> dependents) {
-//        for (GraphicPolygon obj : dependents) {
-//            obj.getObjTransformation().translate3D(dx, dy, dz);
-//            this.translateDependents(dx, dy, dz, obj.getDependentObjects());
-//        }
-//    }
-//
-//    public void scale(double scale) {
-//        this.getObjTransformation().scaleStaticPoint(scale, Point.invert(this.getBondBox().getCenterPoint()));
-//        this.scaleDependents(scale, this.getDependentObjects());
-//    }
-//    
-//    public void scaleDependents(double scale, ArrayList<GraphicPolygon> dependents) {
-//        for (GraphicPolygon obj : dependents) {
-//            obj.getObjTransformation().scaleStaticPoint(scale, Point.invert(obj.getBondBox().getCenterPoint()));
-//            this.scaleDependents(scale, obj.getDependentObjects());
-//        }
-//    }
-//
-//    public void rotate(double angle) {
-//        this.getObjTransformation().rotateStaticPoint(angle, Point.invert(this.getBondBox().getCenterPoint()));
-//        this.rotateDependents(angle, this.getDependentObjects());
-//    }
-//    
-//    public void rotateDependents(double angle, ArrayList<GraphicPolygon> dependents) {
-//        for (GraphicPolygon obj : dependents) {
-//            obj.getObjTransformation().rotateStaticPoint(angle, Point.invert(obj.getBondBox().getCenterPoint()));
-//            this.rotateDependents(angle, obj.getDependentObjects());
-//        }
-//    }
 
     public boolean hasLight() {
         return hasLight;
@@ -163,14 +120,6 @@ public abstract class GraphicPolygon {
 
     public void setDependentObjects(ArrayList<GraphicPolygon> dependentObjects) {
         this.dependentObjects = dependentObjects;
-    }
-
-    public ObjectTransformation getObjTransformation() {
-        return objTransformation;
-    }
-
-    public void setObjTransformation(ObjectTransformation objTransformation) {
-        this.objTransformation = objTransformation;
     }
 
     public ArrayList<GraphicFace> getObjectFaces() {

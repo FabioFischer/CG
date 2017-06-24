@@ -20,7 +20,7 @@ public class PoolObjectsRenderer {
     private PoolCueStick poolCueStick;
     private ArrayList<PoolBall> poolBalls;
     
-    private PoolPositions poolPositions;
+    private PoolObjectsPositions poolObjectsPositions;
     
     private boolean light;
     
@@ -29,28 +29,28 @@ public class PoolObjectsRenderer {
         this.setGlut(glut);
         this.setLight(light);
         
-        this.poolPositions = new PoolPositions(gl, glut);
+        this.poolObjectsPositions = new PoolObjectsPositions(gl, glut);
         this.createObjects();
     }
 
     public void createObjects() {
         this.createPoolTable();
-        this.setPoolBalls(this.poolPositions.createPoolBalls());
+        this.setPoolBalls(this.poolObjectsPositions.createPoolBalls());
 //        this.setPoolCueStick(new PoolCueStick(gl, Color.cBlue, 0, centerPoint, 0, hasLight));
     }
     
     public void createPoolTable() {
-        this.setPoolTable(new PoolTable(this.getGl(), Color.cDarkGreen, poolPositions.createPoolTableTopFaces(), this.HasLight()));
+        this.setPoolTable(new PoolTable(this.getGl(), Color.cDarkGreen, poolObjectsPositions.createPoolTableTopFaces(), this.hasLight()));
         
-        PoolTableLeg leg1 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg1());
-        PoolTableLeg leg2 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg2());
-        PoolTableLeg leg3 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg3());
-        PoolTableLeg leg4 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg4());
+        PoolTableLeg leg1 = new PoolTableLeg(this.getGl(), Color.cBrown, this.hasLight(), poolObjectsPositions.createPoolTableLeg1());
+        PoolTableLeg leg2 = new PoolTableLeg(this.getGl(), Color.cBrown, this.hasLight(), poolObjectsPositions.createPoolTableLeg2());
+        PoolTableLeg leg3 = new PoolTableLeg(this.getGl(), Color.cBrown, this.hasLight(), poolObjectsPositions.createPoolTableLeg3());
+        PoolTableLeg leg4 = new PoolTableLeg(this.getGl(), Color.cBrown, this.hasLight(), poolObjectsPositions.createPoolTableLeg4());
         
-        PoolTableMarginSegment margin1 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg1());
-        PoolTableMarginSegment margin2 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg2());
-        PoolTableMarginSegment margin3 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg3());
-        PoolTableMarginSegment margin4 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg4());
+        PoolTableMarginSegment margin1 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.hasLight(), poolObjectsPositions.createPoolTableMarginSeg1());
+        PoolTableMarginSegment margin2 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.hasLight(), poolObjectsPositions.createPoolTableMarginSeg2());
+        PoolTableMarginSegment margin3 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.hasLight(), poolObjectsPositions.createPoolTableMarginSeg3());
+        PoolTableMarginSegment margin4 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.hasLight(), poolObjectsPositions.createPoolTableMarginSeg4());
         
         this.getPoolTable().addPoolTableLeg(leg1);
         this.getPoolTable().addPoolTableLeg(leg2);
@@ -87,7 +87,7 @@ public class PoolObjectsRenderer {
         this.glut = glut;
     }
 
-    public boolean HasLight() {
+    public boolean hasLight() {
         return light;
     }
 

@@ -46,7 +46,8 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.setGlut(new GLUT());
         
         this.getGlDrawable().setGL(new DebugGL(gl));
-        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 4, 5, 7));
+//        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 4, 5, 7));
+        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 0, 0, 0));
 
         this.setAxis(new Axis(this.getGl(), 10));
         this.getGl().glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

@@ -7,7 +7,7 @@ import com.sun.opengl.util.GLUT;
 import java.util.ArrayList;
 import javax.media.opengl.GL;
 
-public class PoolPositions {
+public class PoolObjectsPositions {
     
     private GL gl;
     private GLUT glut;
@@ -15,7 +15,7 @@ public class PoolPositions {
     private final double DEFAULT_POOL_BALL_SIZE = 0.27;
     private final double WHITE_POOL_BALL_SIZE = 0.29;
     
-    public PoolPositions(GL gl, GLUT glut) {
+    public PoolObjectsPositions(GL gl, GLUT glut) {
         this.setGl(gl);
         this.setGlut(glut);
     }
@@ -434,16 +434,16 @@ public class PoolPositions {
         GraphicFace face1,face2, face3, face4, face5, face6;
        
         face1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
-        face1.addPoint(new Point(8.5, 4, 0, 1));
         face1.addPoint(new Point(8, 4, 0, 1));
-        face1.addPoint(new Point(8, 5.5, 0, 1));
+        face1.addPoint(new Point(8.5, 4, 0, 1));
         face1.addPoint(new Point(8.5, 5.5, 0, 1));
+        face1.addPoint(new Point(8, 5.5, 0, 1));
         
         face2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
-        face2.addPoint(new Point(8.5, 4, 14, 1));
         face2.addPoint(new Point(8, 4, 14, 1));
-        face2.addPoint(new Point(8, 5.5, 14, 1));
+        face2.addPoint(new Point(8.5, 4, 14, 1));
         face2.addPoint(new Point(8.5, 5.5, 14, 1));
+        face2.addPoint(new Point(8, 5.5, 14, 1));
                         
         face3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
         face3.addPoint(new Point(8, 5.5, 0, 1));
@@ -469,13 +469,6 @@ public class PoolPositions {
         face6.addPoint(new Point(8.5, 5.5, 14, 1));
         face6.addPoint(new Point(8.5, 4, 14, 1));
         
-        faces.add(face1);
-        faces.add(face2);
-        faces.add(face3);
-        faces.add(face4);
-        faces.add(face5);
-        faces.add(face6);
-       
         faces.add(face1);
         faces.add(face2);
         faces.add(face3);
