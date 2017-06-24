@@ -12,7 +12,7 @@ import javax.swing.WindowConstants;
 /*
 **   FURB - Bacharelado em Ciências da Computação
 **   Computação Gráfica
-**   Unidade 03
+**   Unidade 04
 **
 **   Fábio Luiz Fischer & Matheus Navarro Nienow
  */
@@ -38,8 +38,8 @@ public class Frame extends JFrame implements ActionListener{
         this.add(canvas, BorderLayout.CENTER);
         canvas.addGLEventListener(renderer);
         canvas.addKeyListener(renderer);
-//        canvas.addMouseListener(renderer);
-//        canvas.addMouseMotionListener(renderer);
+        canvas.addMouseListener(renderer);
+        canvas.addMouseMotionListener(renderer);
 //        canvas.addMouseWheelListener(renderer);
         canvas.requestFocus();}
     

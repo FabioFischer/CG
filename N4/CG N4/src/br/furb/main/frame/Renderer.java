@@ -1,10 +1,14 @@
 package br.furb.main.frame;
 
 import br.furb.main.objects.PoolObjectsRenderer;
+import br.furb.main.utils.Point;
 import br.furb.main.utils.Axis;
 import com.sun.opengl.util.GLUT;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
@@ -18,7 +22,7 @@ import javax.media.opengl.glu.GLU;
 **
 **   Fábio Luiz Fischer & Matheus Navarro Nienow
  */
-public class Renderer implements GLEventListener, KeyListener {
+public class Renderer implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
 
     private GL gl;
     private GLU glu;
@@ -33,6 +37,7 @@ public class Renderer implements GLEventListener, KeyListener {
     private boolean light = true;
     
     private PoolObjectsRenderer poolObjects;
+    private Point mousePos;
         
     public void init(GLAutoDrawable drawable) {
         this.setGlDrawable(drawable);
@@ -53,11 +58,11 @@ public class Renderer implements GLEventListener, KeyListener {
         this.xCenter = 4.0f;		
         this.yCenter = 5.0f;		
         this.zCenter = 7.0f;
-		
-        this.setLight();
         
+        this.setLight();
         this.setPoolObjects(new PoolObjectsRenderer(this.getGl(), this.getGlut(), this.isLight()));
-
+        this.setMousePos(new Point(-1, -1, 0, 1));
+        
         this.getGl().glEnable(GL.GL_CULL_FACE);
         this.getGl().glEnable(GL.GL_DEPTH_TEST);
     }
@@ -77,8 +82,8 @@ public class Renderer implements GLEventListener, KeyListener {
         this.getGl().glLoadIdentity();
         
         this.getGlu().gluLookAt(xEye, yEye, zEye, xCenter, yCenter, zCenter, 0, 1, 0);
-        this.axis.drawAxis();
         
+        this.axis.drawAxis();        
         this.getPoolObjects().drawObjects();
         
         this.getGl().glFlush();
@@ -105,7 +110,7 @@ public class Renderer implements GLEventListener, KeyListener {
                 this.zEye = -20.0f;
                 break;
             case KeyEvent.VK_4:
-                this.xEye = 1.0f;
+                this.xEye = 20.0f;
                 this.yEye = 0.0f;
                 this.zEye = 0.0f;
                 break;
@@ -156,6 +161,14 @@ public class Renderer implements GLEventListener, KeyListener {
         this.poolObjects = poolObjects;
     }
 
+    public Point getMousePos() {
+        return mousePos;
+    }
+
+    public void setMousePos(Point mousePos) {
+        this.mousePos = mousePos;
+    }
+
     public boolean isLight() {
         return light;
     }
@@ -194,5 +207,40 @@ public class Renderer implements GLEventListener, KeyListener {
 
     public void setGlDrawable(GLAutoDrawable glDrawable) {
         this.glDrawable = glDrawable;
+    }
+    
+    public void updateMousePosition(double x, double y) {
+        this.getMousePos().setX((x - (this.getGlDrawable().getHeight() / 2)) * 2);
+        this.getMousePos().setY(-(y - (this.getGlDrawable().getWidth() / 2)) * 2);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        this.updateMousePosition(e.getPoint().getX(), e.getPoint().getY());
+        System.out.println("P --- X = " + this.getMousePos().getX() + " | Y = " + this.getMousePos().getY());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
     }
 }

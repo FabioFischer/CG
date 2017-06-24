@@ -40,12 +40,17 @@ public class PoolObjectsRenderer {
     }
     
     public void createPoolTable() {
-        this.setPoolTable(new PoolTable(this.getGl(), Color.cGreen, poolPositions.createPoolTableTopFaces(), this.HasLight()));
+        this.setPoolTable(new PoolTable(this.getGl(), Color.cDarkGreen, poolPositions.createPoolTableTopFaces(), this.HasLight()));
         
         PoolTableLeg leg1 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg1());
         PoolTableLeg leg2 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg2());
         PoolTableLeg leg3 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg3());
         PoolTableLeg leg4 = new PoolTableLeg(this.getGl(), Color.cBrown, this.HasLight(), poolPositions.createPoolTableLeg4());
+        
+        PoolTableMarginSegment margin1 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg1());
+        PoolTableMarginSegment margin2 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg2());
+        PoolTableMarginSegment margin3 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg3());
+        PoolTableMarginSegment margin4 = new PoolTableMarginSegment(this.getGl(), Color.cDarkBrown, this.HasLight(), poolPositions.createPoolTableMarginSeg4());
         
         this.getPoolTable().addPoolTableLeg(leg1);
         this.getPoolTable().addPoolTableLeg(leg2);

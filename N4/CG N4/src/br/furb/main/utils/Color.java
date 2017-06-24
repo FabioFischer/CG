@@ -18,10 +18,12 @@ public class Color {
     public static final Color cRed = new Color(1, 0, 0, 1);
     public static final Color cDarkRed = new Color(0.5, 0, 0, 1);
     public static final Color cGreen = new Color(0, 1, 0, 1);
-    public static final Color cDarkGreen = new Color(0, 0.5, 0, 1);
+    public static final Color cDarkGreen = new Color(0, 0.75, 0, 1);
+    public static final Color cDarkerGreen = new Color(0, 0.5, 0, 1);
     public static final Color cBlue = new Color(0, 0, 1, 1);
     public static final Color cDarkBlue = new Color(0, 0.1, 0.2, 1);
     public static final Color cBrown = new Color(0.2, 0.1, 0, 1);
+    public static final Color cDarkBrown = new Color(0.1, 0.5, 0, 1);
     public static final Color cYellow = new Color(1, 1, 0, 1);
     public static final Color cOrange = new Color(1, 0.5, 0, 1);
     

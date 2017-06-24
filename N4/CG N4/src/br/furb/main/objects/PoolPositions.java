@@ -328,6 +328,73 @@ public class PoolPositions {
         return faces;
     }
     
+    public ArrayList<GraphicFace> createPoolTableMarginSeg1() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_1 = new GraphicFace(gl, GraphicFace.FRONT_FACE_TYPE);
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_1.addPoint(new Point(0, 0, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_1.addPoint(new Point(1, 0, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_1.addPoint(new Point(1, 4, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_1.addPoint(new Point(0, 4, 0, 1));
+        
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_2 = new GraphicFace(gl, GraphicFace.BACK_FACE_TYPE);
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_2.addPoint(new Point(0, 0, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_2.addPoint(new Point(1, 0, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_2.addPoint(new Point(1, 4, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_2.addPoint(new Point(0, 4, 1, 1));
+        
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_3 = new GraphicFace(gl, GraphicFace.TOP_FACE_TYPE);
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_3.addPoint(new Point(0, 4, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_3.addPoint(new Point(0, 4, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_3.addPoint(new Point(1, 4, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_3.addPoint(new Point(1, 4, 0, 1));
+        
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_4 = new GraphicFace(gl, GraphicFace.BOTTOM_FACE_TYPE);
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_4.addPoint(new Point(0, 0, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_4.addPoint(new Point(0, 0, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_4.addPoint(new Point(1, 0, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_4.addPoint(new Point(1, 0, 0, 1));
+        
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_5 = new GraphicFace(gl, GraphicFace.LEFT_FACE_TYPE);
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_5.addPoint(new Point(0, 0, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_5.addPoint(new Point(0, 4, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_5.addPoint(new Point(0, 4, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_5.addPoint(new Point(0, 0, 1, 1));
+        
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_6 = new GraphicFace(gl, GraphicFace.RIGHT_FACE_TYPE);
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_6.addPoint(new Point(1, 0, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_6.addPoint(new Point(1, 4, 0, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_6.addPoint(new Point(1, 4, 1, 1));
+        this.POOL_TABLE_MARGIN_SEGMENT_1_FACE_6.addPoint(new Point(1, 0, 1, 1));
+        
+        faces.add(POOL_TABLE_MARGIN_SEGMENT_1_FACE_1);
+        faces.add(POOL_TABLE_MARGIN_SEGMENT_1_FACE_2);
+        faces.add(POOL_TABLE_MARGIN_SEGMENT_1_FACE_3);
+        faces.add(POOL_TABLE_MARGIN_SEGMENT_1_FACE_4);
+        faces.add(POOL_TABLE_MARGIN_SEGMENT_1_FACE_5);
+        faces.add(POOL_TABLE_MARGIN_SEGMENT_1_FACE_6);
+        
+        return faces;
+    }
+    
+    public ArrayList<GraphicFace> createPoolTableMarginSeg2() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        return faces;
+    }
+    
+    public ArrayList<GraphicFace> createPoolTableMarginSeg3() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        return faces;
+    }
+    
+    public ArrayList<GraphicFace> createPoolTableMarginSeg4() {
+        ArrayList<GraphicFace> faces = new ArrayList<>();
+        
+        return faces;
+    }
+    
     public ArrayList<PoolBall> createPoolBalls() {
         ArrayList<PoolBall> poolBalls = new ArrayList<>();
         
@@ -345,7 +412,7 @@ public class PoolPositions {
         PoolBall pBall11 = new PoolBall(this.getGl(), this.getGlut(), Color.cRed, new Point(2.8, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
         PoolBall pBall12 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkBlue, new Point(3.4, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
         PoolBall pBall13 = new PoolBall(this.getGl(), this.getGlut(), Color.cOrange, new Point(4, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
-        PoolBall pBall14 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkGreen, new Point(4.6, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
+        PoolBall pBall14 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkerGreen, new Point(4.6, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
         PoolBall pBall15 = new PoolBall(this.getGl(), this.getGlut(), Color.cDarkRed, new Point(5.2, (5 + DEFAULT_POOL_BALL_SIZE), 12, 1), DEFAULT_POOL_BALL_SIZE);
         
         poolBalls.add(pBall0);

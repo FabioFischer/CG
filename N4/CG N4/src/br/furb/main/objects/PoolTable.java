@@ -13,10 +13,9 @@ import javax.media.opengl.GL;
 
 public class PoolTable extends GraphicPolygon{
     
-    private ArrayList<GraphicFace> faces;
-    
     private ArrayList<PoolTableLeg> poolTableLegs;
-    private ArrayList<PoolTableMarginSegment> poolTableMarginSegments;
+    private ArrayList<PoolTableMarginSegment> poolTableMarginSegments;    
+    private ArrayList<GraphicFace> poolTableTopFaces;
     
     public PoolTable(GL gl, Color color, ArrayList<GraphicFace> faces, boolean hasLight) {
         super(gl, color, hasLight, faces);
@@ -49,11 +48,11 @@ public class PoolTable extends GraphicPolygon{
     }
     
     public ArrayList<GraphicFace> getFaces() {
-        return this.faces;
+        return this.poolTableTopFaces;
     }
 
-    public void setFaces(ArrayList<GraphicFace> faces) {
-        this.faces = faces;
+    public void setFaces(ArrayList<GraphicFace> poolTableTopFaces) {
+        this.poolTableTopFaces = poolTableTopFaces;
     }
 
     public ArrayList<PoolTableLeg> getPoolTableLegs() {
