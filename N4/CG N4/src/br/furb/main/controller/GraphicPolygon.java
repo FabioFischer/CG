@@ -49,7 +49,6 @@ public abstract class GraphicPolygon {
         }
         
         this.getGl().glPushMatrix();
-            this.getGl().glMultMatrixd(this.getObjTransformation().getMainMatrix().getMatrix(), 0);
             this.getGl().glBegin(this.getPrimitive());
                 for (GraphicFace objectFace : this.getObjectFaces()) {
                     objectFace.drawFace();
