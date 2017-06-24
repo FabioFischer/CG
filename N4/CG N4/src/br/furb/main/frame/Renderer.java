@@ -3,6 +3,7 @@ package br.furb.main.frame;
 import br.furb.main.objects.PoolObjectsRenderer;
 import br.furb.main.utils.Point;
 import br.furb.main.utils.Axis;
+import br.furb.main.utils.Camera;
 import com.sun.opengl.util.GLUT;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,11 +30,10 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     private GLUT glut;
     private GLAutoDrawable glDrawable;
     
+    private Camera camera;
+    
     private Axis axis;
-    
-    private float xEye, yEye, zEye;
-    private float xCenter, yCenter, zCenter;
-    
+        
     private boolean light = true;
     
     private PoolObjectsRenderer poolObjects;
@@ -45,20 +45,12 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.setGlu(new GLU());
         this.setGlut(new GLUT());
         
-        this.axis = new Axis(this.getGl(), 10);
-        
         this.getGlDrawable().setGL(new DebugGL(gl));
+        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 4, 5, 7));
 
+        this.setAxis(new Axis(this.getGl(), 10));
         this.getGl().glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        
-        this.xEye = 20.0f; 		
-        this.yEye = 20.0f; 		
-        this.zEye = 23.0f;
-        
-        this.xCenter = 4.0f;		
-        this.yCenter = 5.0f;		
-        this.zCenter = 7.0f;
-        
+                
         this.setLight();
         this.setPoolObjects(new PoolObjectsRenderer(this.getGl(), this.getGlut(), this.isLight()));
         this.setMousePos(new Point(-1, -1, 0, 1));
@@ -81,7 +73,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.getGl().glMatrixMode(GL.GL_MODELVIEW);
         this.getGl().glLoadIdentity();
         
-        this.getGlu().gluLookAt(xEye, yEye, zEye, xCenter, yCenter, zCenter, 0, 1, 0);
+        this.getCamera().display();
         
         this.axis.drawAxis();        
         this.getPoolObjects().drawObjects();
@@ -95,24 +87,16 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 System.exit(1);
             break;
             case KeyEvent.VK_1:
-                this.xEye = 20.0f;
-                this.yEye = 20.0f;
-                this.zEye = 20.0f;
+                this.getCamera().setCameraEye(20, 20, 23);
             break;
             case KeyEvent.VK_2:
-                this.xEye = 0.0f;
-                this.yEye = 0.0f;
-                this.zEye = 20.0f;
+                this.getCamera().setCameraEye(20, 20, 0);
                 break;
             case KeyEvent.VK_3:
-                this.xEye = 0.0f;
-                this.yEye = 0.0f;
-                this.zEye = -20.0f;
+                this.getCamera().setCameraEye(0, 20, 20);
                 break;
             case KeyEvent.VK_4:
-                this.xEye = 20.0f;
-                this.yEye = 0.0f;
-                this.zEye = 0.0f;
+                this.getCamera().setCameraEye(20, 0, 20);
                 break;
             case KeyEvent.VK_L:
                 this.light = !light;
@@ -153,6 +137,22 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         }
     }
 
+    public Camera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+
+    public Axis getAxis() {
+        return axis;
+    }
+
+    public void setAxis(Axis axis) {
+        this.axis = axis;
+    }
+    
     public PoolObjectsRenderer getPoolObjects() {
         return poolObjects;
     }

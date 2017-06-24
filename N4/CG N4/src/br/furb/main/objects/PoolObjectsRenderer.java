@@ -56,6 +56,11 @@ public class PoolObjectsRenderer {
         this.getPoolTable().addPoolTableLeg(leg2);
         this.getPoolTable().addPoolTableLeg(leg3);
         this.getPoolTable().addPoolTableLeg(leg4);
+        
+        this.getPoolTable().addPoolTableMarginSegment(margin1);
+        this.getPoolTable().addPoolTableMarginSegment(margin2);
+        this.getPoolTable().addPoolTableMarginSegment(margin3);
+        this.getPoolTable().addPoolTableMarginSegment(margin4);
     }
     
     public void drawObjects() {
