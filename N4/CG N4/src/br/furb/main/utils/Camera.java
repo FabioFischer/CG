@@ -32,6 +32,17 @@ public class Camera {
         this.glu = glu;
     }
     
+    public void rotateHorizonEye(float angle) {
+        System.out.println("cos " +  Math.cos(angle));
+        System.out.println("sen " +  Math.sin(angle));
+        System.out.println("-cos " +  -Math.cos(angle));
+        System.out.println("-sen " +  -Math.sin(angle));
+        System.out.println("\nxEye: " + this.xEye + " yEye: " + this.yEye + " zEye: " + this.zEye);
+        this.xEye = (float) (this.xEye * Math.sin(angle));
+        this.zEye = (float) (this.zEye * Math.cos(angle));
+        System.out.println("xEye: " + this.xEye + " yEye: " + this.yEye + " zEye: " + this.zEye);
+    }
+    
     public void setCameraEye(float x, float y, float z) {
         this.xEye = x;
         this.yEye = y;

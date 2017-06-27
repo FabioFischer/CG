@@ -32,9 +32,15 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     
     private Camera camera;
     
+    private float cameraAngle = 0;
+    
     private Axis axis;
         
     private boolean light = true;
+    
+    private float POOL_TABLE_SIZE_X = 8;
+    private float POOL_TABLE_SIZE_Y = 10;
+    private float POOL_TABLE_SIZE_Z = 14;
     
     private PoolObjectsRenderer poolObjects;
     private Point mousePos;
@@ -46,8 +52,12 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         this.setGlut(new GLUT());
         
         this.getGlDrawable().setGL(new DebugGL(gl));
-//        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 4, 5, 7));
-        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 0, 0, 0));
+        
+        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, POOL_TABLE_SIZE_X/2, POOL_TABLE_SIZE_Y/2, POOL_TABLE_SIZE_Z/2));
+
+
+
+//        this.setCamera(new Camera(this.getGlu(), 20, 20, 23, 0, 0, 0));
 
         this.setAxis(new Axis(this.getGl(), 10));
         this.getGl().glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -76,7 +86,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
         
         this.getCamera().display();
         
-        this.axis.drawAxis();        
+//        this.axis.drawAxis();        
         this.getPoolObjects().drawObjects();
         
         this.getGl().glFlush();
@@ -98,6 +108,11 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
                 break;
             case KeyEvent.VK_4:
                 this.getCamera().setCameraEye(20, 0, 20);
+                break;
+            case KeyEvent.VK_EQUALS:
+                this.getCamera().rotateHorizonEye(cameraAngle);
+                cameraAngle = cameraAngle + 1;
+                System.out.println(cameraAngle);
                 break;
             case KeyEvent.VK_L:
                 this.light = !light;
@@ -126,7 +141,7 @@ public class Renderer implements GLEventListener, KeyListener, MouseListener, Mo
     
     public void setLight() {        
         if (this.isLight()) {
-            float posLight[] = { 20.0f, 20.0f, 20.0f, 0.0f };
+            float posLight[] = { 0.0f, 20.0f, 20.0f, 0.0f };
             gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
             gl.glEnable(GL.GL_LIGHT0);
         } else {

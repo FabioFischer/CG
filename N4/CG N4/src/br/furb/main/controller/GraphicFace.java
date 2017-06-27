@@ -65,7 +65,6 @@ public class GraphicFace {
         
         if (!this.getObjectPoints().isEmpty()) {
             for (Point objectPoint : this.getObjectPoints()) {
-//                System.out.println("X: " + objectPoint.getX() + " / Y: " + objectPoint.getY() + " / Z: " + objectPoint.getZ());
                 this.getGl().glVertex3d(objectPoint.getX(), objectPoint.getY(), objectPoint.getZ());
             }
         }

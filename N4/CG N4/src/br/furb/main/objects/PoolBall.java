@@ -12,7 +12,7 @@ public class PoolBall extends GraphicSphere{
     private double speed;
     private double angle;
     
-    public PoolBall(GL gl, GLUT glut, Color color, Point centerPoint, double size) {
-        super(gl, glut, color, centerPoint, size);
+    public PoolBall(GL gl, GLUT glut, Color color, Point centerPoint, double size, boolean light) {
+        super(gl, glut, color, centerPoint, size, light);
     }
 }
